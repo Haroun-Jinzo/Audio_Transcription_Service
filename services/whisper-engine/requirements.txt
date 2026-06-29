@@ -1,0 +1,8 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.12
+faster-whisper>=1.1.0
+pyannote.audio>=3.3.0
+torch>=2.1.0
+torchaudio>=2.1.0
+jiwer>=3.0.0

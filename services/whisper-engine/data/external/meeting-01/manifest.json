@@ -1,0 +1,671 @@
+{
+  "language": "fr",
+  "transcript": "Okay. All right. Good to go. You want to lead us off? John, I think you have the first item. Yeah. Thanks, Dan. So, hey, welcome, everybody. We'd like to give Nico a warm welcome. Nico is joining us today as a new front-end engineer on the package team. We're very excited to have you, Nico. Nico, I know you just did this, but would you mind just giving us a real quick snippet about yourself, please? Sure. Not a problem. So, I'm Nico. My name is Nicolo, but Nico's perfect for everybody. Before GitLab, I was working in Pui Lab, so I guess Lab sticks with me. I'm really in love with UJS, and I maintain some open source packages, and I'm really excited to start. Nico, we are super excited you're here. Thank you for that, and welcome. Awesome. Thanks, Dan. Over to you. Welcome, Nico. It's great to have you on the team. And next item was issueherder for doing async issue weight estimates. So, we've been walking through, you know, adding to our very lightweight process as we need to add it. As we're seeing gaps, the plan is to sort of do as little effort as we can and then just start working on things. And as we see gaps, we're going to start adding, you know, processes if we feel like they're necessary. Recently, we agreed to do sort of T-shirt sizing on all our issues. That was going to happen the day before the 17th to the 16th. And we're going to finalize what's deliverable on the 17th before we actually kick off work on the 18th of our new milestones. I would like to see everyone's feedback and I see people have already commented in the agenda, but I think what we want to do is sort of decide if we feel like this is helpful. Happy to wait for the next milestone to see if people are like really concerned about the way we decided to already do the lightweight issue weighting effort. that we have. I prefer to iterate on things and not just add a whole bunch of process unless there's a clear reason why we're adding it. And that's kind of why I'm sort of saying, hey, go take a look at this tool. John's used it so John can answer questions better than I can with the issue header. And so, yeah, just flag that for everyone. Go take a look at that tool. If you don't have access Darby or myself, I have to reach out to Darby people if I need to. Cool. I think you have the next item as well. And if people want to discuss that further just sort of issue header further just sort of hit up john and package channel to he said he'd do a demo for us. Do you have the next item john yeah, thanks. Yeah, please, please reach out for issue herder. I can give you a walkthrough of how why we built it what it does all that good stuff. Next point is just a silly Chuck or a silly point. We're saying hi to Chuck. Chuck is a is a good friend who's been sometimes follows our meetings on YouTube. So hi, Chuck. Hi, Chuck. Over to Steve. Thanks, everybody. Yeah, I was just thinking or last week to realize that some of us might have daylight savings coming up and realize that maybe not all of ours line up. So thought it'd be maybe a good idea to know when that might happen for some people and whether or not that affects any of these meeting times in any particular way. But looks like some people have started to just post their dates and just something to keep in mind as we kind of reach the end of October in a month or so. Cool. Yeah, good call that Steve. Thanks for that. Nice job. I will add mine as well. People want to go through and add that to the agenda. I mean, it will just happen with meetings and everything in terms of them sliding, but they won't move automatically. So it's a good, it's a really good point. We do have async meetings for a reason. So if they turn into a time that doesn't work for people, then we should be able to attend as best as we can with meeting notes and then watching the meeting. Just for anyone that can't make meeting, just as a friendly reminder that you should consider that meeting the next day that you're available or working. You should consider that a meeting that you watch as your meeting and take that time, 30 minutes or whatever it is, 25 minutes to sit down and actually review what's in the agenda and then what actually happened in the call. Just because if you don't, you're just going to lose connection with what's happening in the team. And that's why we have the async set up. So, okay. And the next item is mine. There's a discussion that I linked to here going around iterating on our infrared dev escalation process to remove the weekend on call element of that for now. There are a lot of, if you look through that thread. Hi, Tim. If you look through that thread, you'll find that the initial issue was raised to say, hey, let's iterate and remove this because there are a bunch of actual legal considerations around people working on weekends in some countries without, you know, being paid. And so there's a lot of considerations to the iteration that are being proposed is to remove the weekend element of on call, which might make some people feel a little happier because they don't have to be on call on weekends. I don't blame people for feeling happier that way. So go check that out if you're interested. Don't spend a heap of time on it, but there's already a consensus by looking at it that we may be pulling the weekend on call out. So, again, we're looking at the next item I had was the way to move forward on the community contribution for Composer, which is the PHP package manager. Gigi has taken a look at that and I did see a massive commit going to that over the weekend. So many, so many commits, just like huge emails. So maybe that's going to start moving. I'm following that MR so that I can get notifications when stuff happens on it because I really would love to see that move forward because, you know, when the community spends time contributing, it's obviously important that we support them as best as we can. So I feel like that one's pretty well answered so far. And on to you, Axel. Yeah, thanks. So on Friday, I put together a merge request about improving the navigation of the package features. So right now they are all under one roof because before they were scattered all over the place. So I think this is going to improve things as being suggested. And I bring the issue, the emergency question review up if you want to check it out and leave some feedback. I don't know. So, yeah, that's it for me. That's great. Thank you very much for that, Axel. And welcome to, I think, the first meeting you've been to. Yep, that's for sure. Yay. It's nice to have you here. Welcome. Yeah, yeah. And then I have the last thing. There is a back end weekly call that goes on. It's tomorrow morning my time, which is UTC minus seven. If you look at the team meetings, you'll actually be able to find that. And this is mostly for you, Steve, and Gigi as Gigi's watching this. Hi, Gigi. Just go check that meeting out. It's worth going to. Tim Zalman raised this with me that we should be thinking about investing in that. And they're going to start broadening the scope of it. Hopefully to perhaps be maybe something that's like, ah, here's some tips and tricks. Here's how this works is like that type of like environment set up for that. So definitely go check that out. I'm probably going to go to a few of those if I can as well, just to sort of see how it flows. Um, but it's something that, uh, we don't have a lot of clear comms about across the org. So, um, just flagging that for people, if you can't find it, I'll, I will, uh, let's, let's chat in package. There's a, uh, there's also a link in the, um, the description of the backend channel. There's a link for the backend call, which includes the agenda document. Have you been going to that? Mm-hmm. Nice. And how is that something that you find helpful so far? Yeah. Um, I mean, it's very back and forth. Like some weeks it doesn't even really happen because nobody puts anything on the agenda. Um, and then other weeks, a few people will show up and read from some other people's notes. Um, but it's, I like it just to, you know, get a little face time with some people in other areas. Nice. Yeah. So I would say that, um, it sounds like as an org, we're going to try and invest a little bit more in that meeting. Um, so maybe you have a think about what you think could be really useful there. Um, there's a suggestion of, like I said, tips and tricks and whatnot, and even making it somewhat of a social thing. Um, if, if there wasn't any tips and tricks, I think there's problems with scaling. Once you get the tipping points, once you go through scaling of social things, where it gets to like 10 people in it, there's just too many people for anyone to really think. You feel like they're getting social value out of something, I think. Um, uh, but that's something definitely worth looking at. Thank you for that. And maybe think about any other items you want to suggest for that. Like in that realm of like, Hey, how should this work? You know, maybe there's ideas of like, here's a cool MR or here's an issue here as I resolve this, whatever ideas you think are useful. And maybe put them forward in the back end channel. Uh, I don't have to be the conduit for that. Cool. Um, uh, questions for anyone. That's the end of our items in our agenda. Does anyone have anything else they want to raise awkward amount of silence? Yes. I'll add something, uh, for the, we have a front end weekly call as well. Uh, and Dan, it is hard to kind of scale on that social level. So one thing we've been doing recently is, uh, every month we'll do a front end themed call where it gives everybody an opportunity to like, like someone will pick like what's your favorite movie, what's your favorite book and everybody will list that stuff out. And then everybody votes and chooses a winner. And then the winner picks the next, uh, the next theme for next month. Um, so it's been kind of a fun way to, to have some social interaction on a larger scale. So just wanted to throw that out there is, is an idea. Yeah. Tim mentioned that to me as well. Um, uh, yeah, I mean, I'm, I'm, I'm not trying to set what people do in there and what people find interesting out of those calls, but I think that's a good suggestion. Um, Tim said that, um, we, uh, there's, there's probably going to be an effort maybe in a couple of weeks to get a few engineering managers together to sort of help start seeding what's in the back end course, because it sounds like the back end call. Isn't as sort of a mature as, as mature a process or interaction as the front end callers. Um, so there might be some effort getting put towards that here in a couple of weeks or soon. Um, yeah. Yeah. I think the other update, I guess, is that, um, we may be increasing our hiring generally across GitLab in Q4. Um, that was a little flag, which it may not impact the package team, um, beyond what we already are, but, uh, there might be extra peeps at a higher rate of peeps coming on board. Um, so if it wasn't already a lot of peeps already, um, so cool. Anything else anyone wants to discuss today? And awkward silence. Yes. All right. Um, I think that's good to wrap up. And I think, uh, just wanted to say thank you so much for everyone, um, joining us and Axel lovely to see you and thank you so much for your hard work. Uh, and, uh, I hope everyone has a good rest of however much as rest of their day. Liz left with their day today. Thanks. Thanks everyone. Okay. Bye. Bye. Thank you. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye. Bye.",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 8.23,
+      "text": "Okay. All right. Good to go. You want to lead us off? John, I think you have the first item."
+    },
+    {
+      "start": 8.23,
+      "end": 25.15,
+      "text": "Yeah. Thanks, Dan. So, hey, welcome, everybody. We'd like to give Nico a warm welcome. Nico is joining us today as a new front-end engineer on the package team. We're very excited to have you, Nico. Nico, I know you just did this, but would you mind just giving us a real quick snippet about yourself, please?"
+    },
+    {
+      "start": 25.15,
+      "end": 30.55,
+      "text": "Sure. Not a problem. So, I'm Nico. My name is Nicolo, but Nico's perfect for everybody."
+    },
+    {
+      "start": 32.59,
+      "end": 46.59,
+      "text": "Before GitLab, I was working in Pui Lab, so I guess Lab sticks with me. I'm really in love with UJS, and I maintain some open source packages, and I'm really excited to start."
+    },
+    {
+      "start": 46.59,
+      "end": 53.95,
+      "text": "Nico, we are super excited you're here. Thank you for that, and welcome. Awesome. Thanks, Dan. Over to you."
+    },
+    {
+      "start": 53.95,
+      "end": 62.55,
+      "text": "Welcome, Nico. It's great to have you on the team. And next item was issueherder for doing async issue weight estimates."
+    },
+    {
+      "start": 62.59,
+      "end": 74.59,
+      "text": "So, we've been walking through, you know, adding to our very lightweight process as we need to add it. As we're seeing gaps, the plan is to sort of do as little effort as we can and then just start working on things."
+    },
+    {
+      "start": 74.59,
+      "end": 86.59,
+      "text": "And as we see gaps, we're going to start adding, you know, processes if we feel like they're necessary. Recently, we agreed to do sort of T-shirt sizing on all our issues. That was going to happen the day before the 17th to the 16th."
+    },
+    {
+      "start": 86.59,
+      "end": 93.59,
+      "text": "And we're going to finalize what's deliverable on the 17th before we actually kick off work on the 18th of our new milestones."
+    },
+    {
+      "start": 93.59,
+      "end": 104.59,
+      "text": "I would like to see everyone's feedback and I see people have already commented in the agenda, but I think what we want to do is sort of decide if we feel like this is helpful. Happy to wait for the next milestone to see if people are like really concerned about the way we decided to already do the lightweight issue weighting effort."
+    },
+    {
+      "start": 104.59,
+      "end": 125.59,
+      "text": "that we have. I prefer to iterate on things and not just add a whole bunch of process unless there's a clear reason why we're adding it. And that's kind of why I'm sort of saying, hey, go take a look at this tool."
+    },
+    {
+      "start": 125.59,
+      "end": 143.59,
+      "text": "John's used it so John can answer questions better than I can with the issue header. And so, yeah, just flag that for everyone. Go take a look at that tool. If you don't have access Darby or myself, I have to reach out to Darby people if I need to."
+    },
+    {
+      "start": 143.59,
+      "end": 148.59,
+      "text": "Cool. I think you have the next item as well."
+    },
+    {
+      "start": 148.59,
+      "end": 160.59,
+      "text": "And if people want to discuss that further just sort of issue header further just sort of hit up john and package channel to he said he'd do a demo for us. Do you have the next item john"
+    },
+    {
+      "start": 160.59,
+      "end": 168.59,
+      "text": "yeah, thanks. Yeah, please, please reach out for issue herder. I can give you a walkthrough of how why we built it what it does all that good stuff."
+    },
+    {
+      "start": 168.59,
+      "end": 177.59,
+      "text": "Next point is just a silly Chuck or a silly point. We're saying hi to Chuck. Chuck is a is a good friend who's been sometimes follows our meetings on YouTube."
+    },
+    {
+      "start": 177.59,
+      "end": 185.59,
+      "text": "So hi, Chuck. Hi, Chuck. Over to Steve. Thanks, everybody."
+    },
+    {
+      "start": 185.59,
+      "end": 205.59,
+      "text": "Yeah, I was just thinking or last week to realize that some of us might have daylight savings coming up and realize that maybe not all of ours line up. So thought it'd be maybe a good idea to know when that might happen for some people and whether or not that affects any of these meeting times in any particular way."
+    },
+    {
+      "start": 205.59,
+      "end": 215.59,
+      "text": "But looks like some people have started to just post their dates and just something to keep in mind as we kind of reach the end of October in a month or so."
+    },
+    {
+      "start": 215.59,
+      "end": 221.84,
+      "text": "Cool. Yeah, good call that Steve. Thanks for that. Nice job."
+    },
+    {
+      "start": 221.84,
+      "end": 235.84,
+      "text": "I will add mine as well. People want to go through and add that to the agenda. I mean, it will just happen with meetings and everything in terms of them sliding, but they won't move automatically. So it's a good, it's a really good point."
+    },
+    {
+      "start": 235.84,
+      "end": 245.84,
+      "text": "We do have async meetings for a reason. So if they turn into a time that doesn't work for people, then we should be able to attend as best as we can with meeting notes and then watching the meeting."
+    },
+    {
+      "start": 245.84,
+      "end": 254.84,
+      "text": "Just for anyone that can't make meeting, just as a friendly reminder that you should consider that meeting the next day that you're available or working."
+    },
+    {
+      "start": 254.84,
+      "end": 266.84,
+      "text": "You should consider that a meeting that you watch as your meeting and take that time, 30 minutes or whatever it is, 25 minutes to sit down and actually review what's in the agenda and then what actually happened in the call."
+    },
+    {
+      "start": 266.84,
+      "end": 278.84,
+      "text": "Just because if you don't, you're just going to lose connection with what's happening in the team. And that's why we have the async set up. So, okay. And the next item is mine."
+    },
+    {
+      "start": 278.84,
+      "end": 289.84,
+      "text": "There's a discussion that I linked to here going around iterating on our infrared dev escalation process to remove the weekend on call element of that for now."
+    },
+    {
+      "start": 289.84,
+      "end": 309.84,
+      "text": "There are a lot of, if you look through that thread. Hi, Tim. If you look through that thread, you'll find that the initial issue was raised to say, hey, let's iterate and remove this because there are a bunch of actual legal considerations around people working on weekends in some countries without, you know, being paid."
+    },
+    {
+      "start": 309.84,
+      "end": 322.84,
+      "text": "And so there's a lot of considerations to the iteration that are being proposed is to remove the weekend element of on call, which might make some people feel a little happier because they don't have to be on call on weekends."
+    },
+    {
+      "start": 322.84,
+      "end": 326.84,
+      "text": "I don't blame people for feeling happier that way."
+    },
+    {
+      "start": 326.84,
+      "end": 338.84,
+      "text": "So go check that out if you're interested. Don't spend a heap of time on it, but there's already a consensus by looking at it that we may be pulling the weekend on call out."
+    },
+    {
+      "start": 338.84,
+      "end": 353.84,
+      "text": "So, again, we're looking at the next item I had was the way to move forward on the community contribution for Composer, which is the PHP package manager."
+    },
+    {
+      "start": 353.84,
+      "end": 359.84,
+      "text": "Gigi has taken a look at that and I did see a massive commit going to that over the weekend."
+    },
+    {
+      "start": 359.84,
+      "end": 365.84,
+      "text": "So many, so many commits, just like huge emails. So maybe that's going to start moving."
+    },
+    {
+      "start": 365.84,
+      "end": 378.84,
+      "text": "I'm following that MR so that I can get notifications when stuff happens on it because I really would love to see that move forward because, you know, when the community spends time contributing, it's obviously important that we support them as best as we can."
+    },
+    {
+      "start": 378.84,
+      "end": 384.84,
+      "text": "So I feel like that one's pretty well answered so far. And on to you, Axel."
+    },
+    {
+      "start": 384.84,
+      "end": 391.84,
+      "text": "Yeah, thanks. So on Friday, I put together a merge request about improving the navigation of the package features."
+    },
+    {
+      "start": 391.84,
+      "end": 398.84,
+      "text": "So right now they are all under one roof because before they were scattered all over the place."
+    },
+    {
+      "start": 398.84,
+      "end": 404.84,
+      "text": "So I think this is going to improve things as being suggested."
+    },
+    {
+      "start": 404.84,
+      "end": 411.84,
+      "text": "And I bring the issue, the emergency question review up if you want to check it out and leave some feedback."
+    },
+    {
+      "start": 411.84,
+      "end": 416.84,
+      "text": "I don't know. So, yeah, that's it for me."
+    },
+    {
+      "start": 416.84,
+      "end": 420.84,
+      "text": "That's great. Thank you very much for that, Axel. And welcome to, I think, the first meeting you've been to."
+    },
+    {
+      "start": 420.84,
+      "end": 425.84,
+      "text": "Yep, that's for sure. Yay. It's nice to have you here. Welcome."
+    },
+    {
+      "start": 425.84,
+      "end": 431.84,
+      "text": "Yeah, yeah. And then I have the last thing."
+    },
+    {
+      "start": 431.84,
+      "end": 438.84,
+      "text": "There is a back end weekly call that goes on. It's tomorrow morning my time, which is UTC minus seven."
+    },
+    {
+      "start": 438.84,
+      "end": 442.84,
+      "text": "If you look at the team meetings, you'll actually be able to find that."
+    },
+    {
+      "start": 442.84,
+      "end": 449.84,
+      "text": "And this is mostly for you, Steve, and Gigi as Gigi's watching this. Hi, Gigi."
+    },
+    {
+      "start": 449.84,
+      "end": 454.84,
+      "text": "Just go check that meeting out. It's worth going to."
+    },
+    {
+      "start": 454.84,
+      "end": 460.84,
+      "text": "Tim Zalman raised this with me that we should be thinking about investing in that."
+    },
+    {
+      "start": 460.84,
+      "end": 462.84,
+      "text": "And they're going to start broadening the scope of it."
+    },
+    {
+      "start": 462.84,
+      "end": 466.84,
+      "text": "Hopefully to perhaps be maybe something that's like, ah, here's some tips and tricks."
+    },
+    {
+      "start": 466.84,
+      "end": 470.84,
+      "text": "Here's how this works is like that type of like environment set up for that."
+    },
+    {
+      "start": 470.84,
+      "end": 475.84,
+      "text": "So definitely go check that out. I'm probably going to go to a few of those if I can as well, just to sort of see how it flows."
+    },
+    {
+      "start": 475.84,
+      "end": 480.84,
+      "text": "Um, but it's something that, uh, we don't have a lot of clear comms about across the org."
+    },
+    {
+      "start": 480.84,
+      "end": 488.84,
+      "text": "So, um, just flagging that for people, if you can't find it, I'll, I will, uh, let's, let's chat in package."
+    },
+    {
+      "start": 488.84,
+      "end": 494.84,
+      "text": "There's a, uh, there's also a link in the, um, the description of the backend channel."
+    },
+    {
+      "start": 494.84,
+      "end": 498.84,
+      "text": "There's a link for the backend call, which includes the agenda document."
+    },
+    {
+      "start": 498.84,
+      "end": 500.84,
+      "text": "Have you been going to that?"
+    },
+    {
+      "start": 500.84,
+      "end": 501.84,
+      "text": "Mm-hmm."
+    },
+    {
+      "start": 501.84,
+      "end": 502.84,
+      "text": "Nice."
+    },
+    {
+      "start": 502.84,
+      "end": 506.84,
+      "text": "And how is that something that you find helpful so far?"
+    },
+    {
+      "start": 506.84,
+      "end": 507.84,
+      "text": "Yeah."
+    },
+    {
+      "start": 507.84,
+      "end": 510.84,
+      "text": "Um, I mean, it's very back and forth."
+    },
+    {
+      "start": 510.84,
+      "end": 514.84,
+      "text": "Like some weeks it doesn't even really happen because nobody puts anything on the agenda."
+    },
+    {
+      "start": 514.84,
+      "end": 519.84,
+      "text": "Um, and then other weeks, a few people will show up and read from some other people's notes."
+    },
+    {
+      "start": 519.84,
+      "end": 525.84,
+      "text": "Um, but it's, I like it just to, you know, get a little face time with some people in other areas."
+    },
+    {
+      "start": 525.84,
+      "end": 526.84,
+      "text": "Nice."
+    },
+    {
+      "start": 526.84,
+      "end": 527.84,
+      "text": "Yeah."
+    },
+    {
+      "start": 527.84,
+      "end": 532.84,
+      "text": "So I would say that, um, it sounds like as an org, we're going to try and invest a little bit more in that meeting."
+    },
+    {
+      "start": 532.84,
+      "end": 536.84,
+      "text": "Um, so maybe you have a think about what you think could be really useful there."
+    },
+    {
+      "start": 536.84,
+      "end": 542.84,
+      "text": "Um, there's a suggestion of, like I said, tips and tricks and whatnot, and even making it somewhat of a social thing."
+    },
+    {
+      "start": 542.84,
+      "end": 547.84,
+      "text": "Um, if, if there wasn't any tips and tricks, I think there's problems with scaling."
+    },
+    {
+      "start": 547.84,
+      "end": 555.84,
+      "text": "Once you get the tipping points, once you go through scaling of social things, where it gets to like 10 people in it, there's just too many people for anyone to really think."
+    },
+    {
+      "start": 555.84,
+      "end": 558.84,
+      "text": "You feel like they're getting social value out of something, I think."
+    },
+    {
+      "start": 558.84,
+      "end": 562.84,
+      "text": "Um, uh, but that's something definitely worth looking at."
+    },
+    {
+      "start": 562.84,
+      "end": 563.84,
+      "text": "Thank you for that."
+    },
+    {
+      "start": 563.84,
+      "end": 567.84,
+      "text": "And maybe think about any other items you want to suggest for that."
+    },
+    {
+      "start": 567.84,
+      "end": 570.84,
+      "text": "Like in that realm of like, Hey, how should this work?"
+    },
+    {
+      "start": 570.84,
+      "end": 576.84,
+      "text": "You know, maybe there's ideas of like, here's a cool MR or here's an issue here as I resolve this, whatever ideas you think are useful."
+    },
+    {
+      "start": 576.84,
+      "end": 578.84,
+      "text": "And maybe put them forward in the back end channel."
+    },
+    {
+      "start": 578.84,
+      "end": 580.84,
+      "text": "Uh, I don't have to be the conduit for that."
+    },
+    {
+      "start": 580.84,
+      "end": 581.84,
+      "text": "Cool."
+    },
+    {
+      "start": 581.84,
+      "end": 586.84,
+      "text": "Um, uh, questions for anyone."
+    },
+    {
+      "start": 586.84,
+      "end": 589.84,
+      "text": "That's the end of our items in our agenda."
+    },
+    {
+      "start": 589.84,
+      "end": 600.7,
+      "text": "Does anyone have anything else they want to raise awkward amount of silence?"
+    },
+    {
+      "start": 600.7,
+      "end": 601.7,
+      "text": "Yes."
+    },
+    {
+      "start": 601.7,
+      "end": 607.7,
+      "text": "I'll add something, uh, for the, we have a front end weekly call as well."
+    },
+    {
+      "start": 607.7,
+      "end": 610.7,
+      "text": "Uh, and Dan, it is hard to kind of scale on that social level."
+    },
+    {
+      "start": 610.7,
+      "end": 622.7,
+      "text": "So one thing we've been doing recently is, uh, every month we'll do a front end themed call where it gives everybody an opportunity to like, like someone will pick like what's your favorite movie, what's your favorite book and everybody will list that stuff out."
+    },
+    {
+      "start": 622.7,
+      "end": 625.7,
+      "text": "And then everybody votes and chooses a winner."
+    },
+    {
+      "start": 625.7,
+      "end": 629.7,
+      "text": "And then the winner picks the next, uh, the next theme for next month."
+    },
+    {
+      "start": 629.7,
+      "end": 634.7,
+      "text": "Um, so it's been kind of a fun way to, to have some social interaction on a larger scale."
+    },
+    {
+      "start": 634.7,
+      "end": 637.7,
+      "text": "So just wanted to throw that out there is, is an idea."
+    },
+    {
+      "start": 637.7,
+      "end": 638.7,
+      "text": "Yeah."
+    },
+    {
+      "start": 638.7,
+      "end": 640.7,
+      "text": "Tim mentioned that to me as well."
+    },
+    {
+      "start": 640.7,
+      "end": 651.7,
+      "text": "Um, uh, yeah, I mean, I'm, I'm, I'm not trying to set what people do in there and what people find interesting out of those calls, but I think that's a good suggestion."
+    },
+    {
+      "start": 651.7,
+      "end": 663.7,
+      "text": "Um, Tim said that, um, we, uh, there's, there's probably going to be an effort maybe in a couple of weeks to get a few engineering managers together to sort of help start seeding what's in the back end course, because it sounds like the back end call."
+    },
+    {
+      "start": 663.7,
+      "end": 669.7,
+      "text": "Isn't as sort of a mature as, as mature a process or interaction as the front end callers."
+    },
+    {
+      "start": 669.7,
+      "end": 675.7,
+      "text": "Um, so there might be some effort getting put towards that here in a couple of weeks or soon."
+    },
+    {
+      "start": 675.7,
+      "end": 677.7,
+      "text": "Um, yeah."
+    },
+    {
+      "start": 677.7,
+      "end": 678.7,
+      "text": "Yeah."
+    },
+    {
+      "start": 678.7,
+      "end": 686.7,
+      "text": "I think the other update, I guess, is that, um, we may be increasing our hiring generally across GitLab in Q4."
+    },
+    {
+      "start": 686.7,
+      "end": 698.7,
+      "text": "Um, that was a little flag, which it may not impact the package team, um, beyond what we already are, but, uh, there might be extra peeps at a higher rate of peeps coming on board."
+    },
+    {
+      "start": 698.7,
+      "end": 704.7,
+      "text": "Um, so if it wasn't already a lot of peeps already, um, so cool."
+    },
+    {
+      "start": 704.7,
+      "end": 709.07,
+      "text": "Anything else anyone wants to discuss today?"
+    },
+    {
+      "start": 709.07,
+      "end": 714.01,
+      "text": "And awkward silence."
+    },
+    {
+      "start": 714.01,
+      "end": 715.01,
+      "text": "Yes."
+    },
+    {
+      "start": 715.01,
+      "end": 716.01,
+      "text": "All right."
+    },
+    {
+      "start": 716.01,
+      "end": 717.01,
+      "text": "Um, I think that's good to wrap up."
+    },
+    {
+      "start": 717.01,
+      "end": 725.01,
+      "text": "And I think, uh, just wanted to say thank you so much for everyone, um, joining us and Axel lovely to see you and thank you so much for your hard work."
+    },
+    {
+      "start": 725.01,
+      "end": 731.01,
+      "text": "Uh, and, uh, I hope everyone has a good rest of however much as rest of their day."
+    },
+    {
+      "start": 731.01,
+      "end": 733.01,
+      "text": "Liz left with their day today."
+    },
+    {
+      "start": 733.01,
+      "end": 734.01,
+      "text": "Thanks."
+    },
+    {
+      "start": 734.01,
+      "end": 735.01,
+      "text": "Thanks everyone."
+    },
+    {
+      "start": 735.01,
+      "end": 736.01,
+      "text": "Okay."
+    },
+    {
+      "start": 736.01,
+      "end": 737.01,
+      "text": "Bye."
+    },
+    {
+      "start": 737.01,
+      "end": 738.01,
+      "text": "Bye."
+    },
+    {
+      "start": 738.01,
+      "end": 739.01,
+      "text": "Thank you."
+    },
+    {
+      "start": 739.01,
+      "end": 740.01,
+      "text": "Bye."
+    },
+    {
+      "start": 740.01,
+      "end": 741.01,
+      "text": "Bye."
+    },
+    {
+      "start": 741.01,
+      "end": 742.01,
+      "text": "Bye."
+    },
+    {
+      "start": 742.01,
+      "end": 743.01,
+      "text": "Bye."
+    },
+    {
+      "start": 743.01,
+      "end": 744.01,
+      "text": "Bye."
+    },
+    {
+      "start": 744.01,
+      "end": 745.01,
+      "text": "Bye."
+    },
+    {
+      "start": 745.01,
+      "end": 746.01,
+      "text": "Bye."
+    },
+    {
+      "start": 746.01,
+      "end": 747.01,
+      "text": "Bye."
+    },
+    {
+      "start": 747.01,
+      "end": 748.01,
+      "text": "Bye."
+    },
+    {
+      "start": 748.01,
+      "end": 749.01,
+      "text": "Bye."
+    },
+    {
+      "start": 749.01,
+      "end": 750.01,
+      "text": "Bye."
+    },
+    {
+      "start": 750.01,
+      "end": 751.01,
+      "text": "Bye."
+    },
+    {
+      "start": 751.01,
+      "end": 752.01,
+      "text": "Bye."
+    },
+    {
+      "start": 752.01,
+      "end": 753.01,
+      "text": "Bye."
+    },
+    {
+      "start": 753.01,
+      "end": 754.01,
+      "text": "Bye."
+    },
+    {
+      "start": 754.01,
+      "end": 755.01,
+      "text": "Bye."
+    }
+  ]
+}

@@ -1,0 +1,386 @@
+{
+  "language": "fr",
+  "transcript": "Marcus White is the Managing Director of Quartz Power Group, an energy company. Every month, the departmental managers meet to discuss high-level issues in the company. Marcus is leading this month's meeting. OK, well, good morning, everyone. Thank you very much for being here on time. We've got a lot to do today, so let's get started. Now, everyone's here, apart from John in Facilities, but we have apologies from him. Has everyone got a copy of the agenda? Good. OK, can I draw your attention to item four, where it says presentation of online survey results? The presentation is going to be given by Miss Patricia Reyes, who is a representative of the research company we contracted to carry out the work. Now, Miss Reyes will arrive at 11.30, so I plan to break at about 11.15 to give her time to set up. It may also mean that we need to interrupt the first few agenda items, but we'll come back to those. And lastly, I'd like to leave a little bit of time under any other business to discuss whatever might come out of the presentation. OK, so, item one is relocation and plans for flexible working. Now, as you know, Paul and his team have been working on plans to extend flexible working hours across the company. So, Paul, perhaps I can begin by asking you to fill us in on your progress. Thank you very much indeed, Paul. I mean, on behalf of everyone, I'd like to say thank you to you and to your team for all the hard work that you've put in so far on this project. I really appreciate it. Before we move on to item two, are there any comments anyone has, anyone would like to make on item one? No? Maya, I'm aware that flexible working hours has a particular impact on some of your team. Do you have any thoughts on that? Well, from my point of view, what Paul is proposing sounds fine. I am a bit concerned about working with a system of core hours and then flexible hours, but I think we all need time to read through Paul's proposal in more detail before discussing it any further. OK, well, that sounds reasonable. And what do other people think? Do you agree with Maya that we need to look through the proposal in more detail first? Yes? OK, right. Well, I'm sure we can return to it at next month's meeting. OK. Good. Are we all OK to move on to the next point? Right. So, the up-and-coming board meeting. Now, we don't need to spend too much time on this, but there are one or two issues which we need to be aware of. Lydia, can you warn me if we go beyond 10 minutes on this one? So, those two people will be replacing the two members of the board who are leaving us. And that's everything, I think, on item two. So, right. Moving on to item three and the cost breakdown for the relocation. Now, Maya, thank you very much for emailing the current figures to all of us. I hope that we've all had time to look at them, to read them through. Maya, is there anything that you want to add before I open this up for questions? Ah, not really. Nothing's changed since it was sent out, as far as I know. Are there any questions arising from Maya's report? Matt, you look as if you might have a question. Yes, I suppose I do. Well, it's more of a comment, really. The fact is, IT will have the highest costs attached to this relocation in terms of moving equipment. And I'll also need to bring quite a few contract people to help. But the figures in here don't seem to be the same as the estimates I gave you. It's all going to require a lot of overtime in my department. Well, I have allocated some of the costs to the budgets of other departments. That seemed the fairest way to do it. Otherwise, as you say, IT is responsible for a large part of the relocation costs. So, do you mean that any IT costs related to, say, marketing will be covered by the marketing budget? Yes, in a way. Look, this might help clarify it. You see, I've broken the IT department up into segments. Oh, I'm sorry. Can we continue this discussion after lunch? The lady from the research company is waiting to join us and to present her results. But before we take a break, I just want to summarise where we are so far. Now, my understanding is that Maya has tried to allocate the relocation costs across departments as far as is possible. But that Matt feels that IT is still taking too many costs. Is that right? That's about right. Good. OK, let's take a break now. And can we all be back here promptly at 11.30 to continue where we left off? Lydia, could you bring Miss Reyes up, please? Yes, I will do.",
+  "segments": [
+    {
+      "start": 0.62,
+      "end": 16.87,
+      "text": "Marcus White is the Managing Director of Quartz Power Group, an energy company."
+    },
+    {
+      "start": 17.83,
+      "end": 22.67,
+      "text": "Every month, the departmental managers meet to discuss high-level issues in the company."
+    },
+    {
+      "start": 23.91,
+      "end": 25.73,
+      "text": "Marcus is leading this month's meeting."
+    },
+    {
+      "start": 26.37,
+      "end": 30.23,
+      "text": "OK, well, good morning, everyone. Thank you very much for being here on time."
+    },
+    {
+      "start": 30.73,
+      "end": 34.07,
+      "text": "We've got a lot to do today, so let's get started."
+    },
+    {
+      "start": 35.17,
+      "end": 40.51,
+      "text": "Now, everyone's here, apart from John in Facilities, but we have apologies from him."
+    },
+    {
+      "start": 40.77,
+      "end": 43.55,
+      "text": "Has everyone got a copy of the agenda?"
+    },
+    {
+      "start": 45.19,
+      "end": 53.43,
+      "text": "Good. OK, can I draw your attention to item four, where it says presentation of online survey results?"
+    },
+    {
+      "start": 54.43,
+      "end": 63.89,
+      "text": "The presentation is going to be given by Miss Patricia Reyes, who is a representative of the research company we contracted to carry out the work."
+    },
+    {
+      "start": 63.89,
+      "end": 73.05,
+      "text": "Now, Miss Reyes will arrive at 11.30, so I plan to break at about 11.15 to give her time to set up."
+    },
+    {
+      "start": 73.41,
+      "end": 80.39,
+      "text": "It may also mean that we need to interrupt the first few agenda items, but we'll come back to those."
+    },
+    {
+      "start": 81.81,
+      "end": 89.99,
+      "text": "And lastly, I'd like to leave a little bit of time under any other business to discuss whatever might come out of the presentation."
+    },
+    {
+      "start": 89.99,
+      "end": 98.45,
+      "text": "OK, so, item one is relocation and plans for flexible working."
+    },
+    {
+      "start": 98.95,
+      "end": 107.07,
+      "text": "Now, as you know, Paul and his team have been working on plans to extend flexible working hours across the company."
+    },
+    {
+      "start": 107.51,
+      "end": 112.43,
+      "text": "So, Paul, perhaps I can begin by asking you to fill us in on your progress."
+    },
+    {
+      "start": 112.43,
+      "end": 120.53,
+      "text": "Thank you very much indeed, Paul."
+    },
+    {
+      "start": 121.53,
+      "end": 131.69,
+      "text": "I mean, on behalf of everyone, I'd like to say thank you to you and to your team for all the hard work that you've put in so far on this project."
+    },
+    {
+      "start": 131.69,
+      "end": 134.23,
+      "text": "I really appreciate it."
+    },
+    {
+      "start": 134.89,
+      "end": 143.39,
+      "text": "Before we move on to item two, are there any comments anyone has, anyone would like to make on item one?"
+    },
+    {
+      "start": 146.66,
+      "end": 146.92,
+      "text": "No?"
+    },
+    {
+      "start": 148.14,
+      "end": 154.84,
+      "text": "Maya, I'm aware that flexible working hours has a particular impact on some of your team."
+    },
+    {
+      "start": 155.44,
+      "end": 157.08,
+      "text": "Do you have any thoughts on that?"
+    },
+    {
+      "start": 157.08,
+      "end": 161.8,
+      "text": "Well, from my point of view, what Paul is proposing sounds fine."
+    },
+    {
+      "start": 162.46,
+      "end": 167.32,
+      "text": "I am a bit concerned about working with a system of core hours and then flexible hours,"
+    },
+    {
+      "start": 167.76,
+      "end": 173.54,
+      "text": "but I think we all need time to read through Paul's proposal in more detail before discussing it any further."
+    },
+    {
+      "start": 174.56,
+      "end": 176.2,
+      "text": "OK, well, that sounds reasonable."
+    },
+    {
+      "start": 176.9,
+      "end": 178.32,
+      "text": "And what do other people think?"
+    },
+    {
+      "start": 178.32,
+      "end": 184.1,
+      "text": "Do you agree with Maya that we need to look through the proposal in more detail first?"
+    },
+    {
+      "start": 185.44,
+      "end": 185.84,
+      "text": "Yes?"
+    },
+    {
+      "start": 186.42,
+      "end": 186.94,
+      "text": "OK, right."
+    },
+    {
+      "start": 186.98,
+      "end": 190.08,
+      "text": "Well, I'm sure we can return to it at next month's meeting."
+    },
+    {
+      "start": 190.66,
+      "end": 190.84,
+      "text": "OK."
+    },
+    {
+      "start": 191.62,
+      "end": 191.94,
+      "text": "Good."
+    },
+    {
+      "start": 192.74,
+      "end": 195.44,
+      "text": "Are we all OK to move on to the next point?"
+    },
+    {
+      "start": 198.14,
+      "end": 198.52,
+      "text": "Right."
+    },
+    {
+      "start": 198.78,
+      "end": 202.08,
+      "text": "So, the up-and-coming board meeting."
+    },
+    {
+      "start": 203.08,
+      "end": 205.64,
+      "text": "Now, we don't need to spend too much time on this,"
+    },
+    {
+      "start": 205.64,
+      "end": 210.24,
+      "text": "but there are one or two issues which we need to be aware of."
+    },
+    {
+      "start": 210.98,
+      "end": 215.96,
+      "text": "Lydia, can you warn me if we go beyond 10 minutes on this one?"
+    },
+    {
+      "start": 219.36,
+      "end": 224.82,
+      "text": "So, those two people will be replacing the two members of the board who are leaving us."
+    },
+    {
+      "start": 225.78,
+      "end": 229.56,
+      "text": "And that's everything, I think, on item two."
+    },
+    {
+      "start": 230.42,
+      "end": 231.34,
+      "text": "So, right."
+    },
+    {
+      "start": 232.1,
+      "end": 237.88,
+      "text": "Moving on to item three and the cost breakdown for the relocation."
+    },
+    {
+      "start": 238.3,
+      "end": 242.48,
+      "text": "Now, Maya, thank you very much for emailing the current figures to all of us."
+    },
+    {
+      "start": 242.88,
+      "end": 246.82,
+      "text": "I hope that we've all had time to look at them, to read them through."
+    },
+    {
+      "start": 247.68,
+      "end": 251.52,
+      "text": "Maya, is there anything that you want to add before I open this up for questions?"
+    },
+    {
+      "start": 252.08,
+      "end": 252.92,
+      "text": "Ah, not really."
+    },
+    {
+      "start": 253.22,
+      "end": 255.66,
+      "text": "Nothing's changed since it was sent out, as far as I know."
+    },
+    {
+      "start": 256.98,
+      "end": 259.86,
+      "text": "Are there any questions arising from Maya's report?"
+    },
+    {
+      "start": 261.74,
+      "end": 263.68,
+      "text": "Matt, you look as if you might have a question."
+    },
+    {
+      "start": 263.92,
+      "end": 265.52,
+      "text": "Yes, I suppose I do."
+    },
+    {
+      "start": 265.7,
+      "end": 267.52,
+      "text": "Well, it's more of a comment, really."
+    },
+    {
+      "start": 267.52,
+      "end": 274.52,
+      "text": "The fact is, IT will have the highest costs attached to this relocation in terms of moving equipment."
+    },
+    {
+      "start": 274.9,
+      "end": 278.24,
+      "text": "And I'll also need to bring quite a few contract people to help."
+    },
+    {
+      "start": 278.78,
+      "end": 282.72,
+      "text": "But the figures in here don't seem to be the same as the estimates I gave you."
+    },
+    {
+      "start": 283.62,
+      "end": 286.1,
+      "text": "It's all going to require a lot of overtime in my department."
+    },
+    {
+      "start": 286.1,
+      "end": 290.96,
+      "text": "Well, I have allocated some of the costs to the budgets of other departments."
+    },
+    {
+      "start": 291.32,
+      "end": 292.94,
+      "text": "That seemed the fairest way to do it."
+    },
+    {
+      "start": 293.02,
+      "end": 298.46,
+      "text": "Otherwise, as you say, IT is responsible for a large part of the relocation costs."
+    },
+    {
+      "start": 298.46,
+      "end": 304.3,
+      "text": "So, do you mean that any IT costs related to, say, marketing will be covered by the marketing budget?"
+    },
+    {
+      "start": 304.84,
+      "end": 305.96,
+      "text": "Yes, in a way."
+    },
+    {
+      "start": 306.26,
+      "end": 308.56,
+      "text": "Look, this might help clarify it."
+    },
+    {
+      "start": 308.56,
+      "end": 313.56,
+      "text": "You see, I've broken the IT department up into segments."
+    },
+    {
+      "start": 314.06,
+      "end": 315.2,
+      "text": "Oh, I'm sorry."
+    },
+    {
+      "start": 315.32,
+      "end": 318.16,
+      "text": "Can we continue this discussion after lunch?"
+    },
+    {
+      "start": 318.62,
+      "end": 324.0,
+      "text": "The lady from the research company is waiting to join us and to present her results."
+    },
+    {
+      "start": 324.74,
+      "end": 329.56,
+      "text": "But before we take a break, I just want to summarise where we are so far."
+    },
+    {
+      "start": 329.56,
+      "end": 338.54,
+      "text": "Now, my understanding is that Maya has tried to allocate the relocation costs across departments as far as is possible."
+    },
+    {
+      "start": 338.84,
+      "end": 344.22,
+      "text": "But that Matt feels that IT is still taking too many costs."
+    },
+    {
+      "start": 345.14,
+      "end": 345.82,
+      "text": "Is that right?"
+    },
+    {
+      "start": 346.34,
+      "end": 347.3,
+      "text": "That's about right."
+    },
+    {
+      "start": 347.82,
+      "end": 348.14,
+      "text": "Good."
+    },
+    {
+      "start": 348.52,
+      "end": 350.36,
+      "text": "OK, let's take a break now."
+    },
+    {
+      "start": 350.7,
+      "end": 357.14,
+      "text": "And can we all be back here promptly at 11.30 to continue where we left off?"
+    },
+    {
+      "start": 357.14,
+      "end": 360.48,
+      "text": "Lydia, could you bring Miss Reyes up, please?"
+    },
+    {
+      "start": 360.96,
+      "end": 361.6,
+      "text": "Yes, I will do."
+    }
+  ]
+}

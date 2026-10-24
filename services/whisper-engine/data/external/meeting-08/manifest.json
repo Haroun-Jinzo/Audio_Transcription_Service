@@ -1,0 +1,2841 @@
+{
+  "language": "fr",
+  "transcript": "Sweet. I don't know. It always does this. I always, like, make hand gestures and then it lets me know. All right. So first question, has everybody been able to, I mean, Bogdan and team, I think, were brought up to speed in the last sync, but did you guys get a chance to watch at least a little bit of the last sync? I know it was a little bit long. We had definitely a long session, but... I still have, like, probably a few minutes to finish. Yeah, but I, so I watched most of it. Most of it was discussion around the design document already, so I'm already familiar. Stuff you guys are ready. Yeah. But there was some questions still, like, regarding the SDLC data, which is... I still don't have info about, so regarding, like, when you drew the namespace hierarchy and where, like, we indexed. That's a good question, but I don't know. I don't have an answer yet. Oh, wait. Jean-Gabriel. I have to... Why is he... Why do I have to admit him every time? It's weird. Okay. Yeah. I don't know why I have to admit him. Okay. That's cool. Yeah. That was the main thing we ended. So note we ended on during the thing. So there's... Here's the thing. So this is what I'm thinking. Let me know if you guys... Again, it's up to the team. That's the beauty. I think we have a lot of strong engineers here that we can make really good decisions. This is like a super team, in my opinion. But I could be biased. So basically, we ended basic... There's three streams here. There's... And I put this... I started the call in the last call about this. Let me just share my screen. And there's like a few things we need to think about. All right. So everybody knows this, but we already have the local code index, right? There's still a ton of work to go there, but priority is this, right? And I know it's a business priority based on what I talked with Jordan. I still need to post that recording. So we definitely need to start looking at SDLC data indexing. And the sooner we figure out the... I'm working on like my own POC, but the sooner we figure out some of the unanswered questions, and maybe it'd be best use of our time to figure out what are the unanswered questions, the better, especially around SDLC indexing. But the two categories here are the server code indexing, which is the current architecture that we currently have, which is largely Zoet, right? Everybody knows this. I think everybody's up to speed on this. And then there's the SDLC indexing and picking the correct architecture and or database for that, right? And so the server-side stuff, I think no matter what we do here, a lot of what we're building, unless you guys disagree, if we change, for instance, the data source, where we're getting the events, that being siphoned, I don't think much of the stuff that we're building plumbing-wise will change. Maybe like the... Well, again, maybe we want to keep the same architecture for code indexing and then bring in Siphon for the other types of data. Those are questions that we'll need to figure out. And then tomorrow, Dimitri and I are meeting with Adam to get a better picture on Siphon. But based on my talks with Dennis and Nitin and Adam, did I send you guys the conversation between Adam and I? I think I sent... Let me send it to you guys. I thought that when you mentioned before, I thought he joined in the same code. So when I was watching it, I expected that... Here, I'll send it to you guys. Let me send it to... Who's Adam? Adam... I had it in draft, but I didn't send it. That's funny. I should have sent that a while ago. Sorry, guys. Oh, okay. So I chatted with Adam yesterday and TLDR is... It seems like it is possible to source the data. So my plan is to like basically try to come up with a little POC to see if we can get it working. Like just simple subscribing to events and getting them and then maybe getting some of the events that we're interested in. The only problem like Dimitri was saying is the prod timeline, right? But when I talked to Dennis about this, they're going through that whole review process anyways. And then I was looking at some of the infrastructure readiness tickets that Jan had up. We haven't gone through that. It seems like yet. The review, you know, you guys know what I'm talking about? Readiness, like there is already some issue where like Daniel started with that. But if you are talking about the same thing, because Jan passed this to me as like a point of contact. And he decided to split that into two parts, like indexing part and the query part. Oh, okay. I can link it now in the document as a... Yeah. Can you do that? Yeah. That would be good to know. But we'll see what Adam says and get an estimate on the timeline. because if it's say, you know, max a few months and or we can help out with that. I mean, unless Dimitri, you have concerns with using Syphon. It seems like the correct architectural move. I definitely agree that's the best long-term solution. So my only concern was with the timeline essentially. Yeah. And I think it will be more clear tomorrow. Okay. Um, so yeah, so those are the, um, if we go back here, um, I don't know Omar how much you missed. But essentially what we're the, where we, uh, left off is we have server code indexing and we have the SDLC indexing. Yeah, that, that I saw just like to, uh, um, like, um, I mean, I only have like 10 minutes left from the call. So I, I already have seen that and I have seen some of the questions, but I want to maybe get back to the SDLC part. And just to, um, I mean, uh, from my perspective, as I mentioned in the last call, like I'm so focused now on the code indexing part and trying to get something. That's why I couldn't focus so much on the SDLC. But my problem at the moment with the SDLC, and that's why I was, I was calling for document to read is that I know that we want to build graph of the, of the data that we have on Postgres. But I don't know what kind of problems that we want to solve. Yeah. Yeah. And what, I, what kind of questions we want to answer with it? Yes, of course. So answer like, for example, like, are we going to build graph from the issues project namespaces, uh, like these core models that, uh, or we are going to build a graph from everything. So it's like, it's, it's the same Postgres database, but represents as a graph. Yes. That's, that's, that's exactly what, um, that's like the perfect question. So that's why we're also putting together this, um, more product oriented thing. This is what I'm putting together with Jordan. Um, and he's going to most likely create an Epic or some type of issue. outlining what are the questions where, or the problems that we're trying to solve with the graph database. And what is, what can a graph database solve that these traditional tools and OLTP, you know, like a Postgres database can't solve as easily. Right. Um, and I was, this is also what I was talking about with Dennis, like, um, just simple things. Like if you want to do aggregated queries and you want to do more analytical type of queries, Postgres has a 15 second timeout. Right. Right. And, um, that I didn't know. And so that's like a huge blocker for analytical queries. And so when you have a graph database, you can do more of these analytical queries, but just like we're putting together these use cases on like where we can tie the code graph that we've already built for the code indexing and how the server side items can tie down to that. And we should, and Dennis's recommendation is we don't say we want to index every server side item in the world. That would be a terrible idea. Right. Let's start with a subset of items that we want to index and, um, orient those around the use case. So Jordan and I were thinking basically, um, starting with say an issue MR and maybe comments if it's not too complex. And MR, of course, or all the data around the MR. So the changed files, et cetera, and then tying that to the code graph. Um, does that make sense? Does that make sense? And so like theory, like, I mean, again, theoretically, but I'm, I'm sure everybody on this call knows when you have a graph representation of what I was showing, uh, what I've been showing people. When you have this graph, right in the old world, right. You have a project. Let's say you want to the same question here, but what, with this completed issue, what was the business context for the change? And where were the specific classes that were impacted by, um, you know, uh, impacted in these two services? Right. So imagine these are two projects, but let's do one project for now. In the old world that you'd have a tool call or postcards query, whatever it is. Um, API call for getting a, the project, um, uh, be the particular issue, which is the business context, find which MRs are related to this issue. So this MR could actually be related to this issue, but it could not be linked, but you can see there's ways that through the network graph, it can discover the MR. Um, but it then would have to get the issue and do a separate API call because closes issues. Uh, the it's called issue links API, I think is a separate API call, or it would be a separate tool. Um, same thing for the MR and same thing for, um, you would have to do this issue. Um, you'd have to do a set, uh, separate API calls for each MR or list MRs, get MR details, get the change files for a given MR or the diff for an MR, and then get the, um, uh, then go into the code graph. And in the old world, you have to do graph and iterate through the files. Right now, when you have an SDLC graph, you can iterate through all of these. You can give the agent just nearest neighbors with depth two, uh, like a depth two limit. And it can literally just start with any one of these entry nodes, discover the immediate MRs. and in like two, two calls, you reduce the number of two calls by like, by like two. And on top of that, you don't have to build separate tools, engineering resources for each one of these API calls. Um, you can do that in all in one shot. And then eventually if we build a language for the LLM to make its own type of graph queries, then, um, like, uh, you know, an RDF type of language or, um, uh, translate some type of query to Cypher. We can allow it to traverse the graph and do aggregations and more analytical queries. So like, you know, ranked by rank the issues by number of MRs or something, right. Or top closing issues, et cetera. Those types of questions would be way harder to answer with traditional GraphQL and, and, and Postgres. Does that answer your question a little bit? Yeah. Yeah. This is, this is good. Like at least it gives some idea about what kind of relationships we want. Yeah. Um, can you link that document, please? Like I, I, I, I never came across that, uh, um, the, the Google docs. Uh, oh, this one, uh, the knowledge as a service. Yeah. Um, yeah, this one. Yeah. It should be shared with everybody, but I'll share it with you. You should get a, an email. Actually, I'll just put it in the meeting. Yes. Yeah. That would be good. There you go. Um, so yeah, so that, that's basically kind of explaining high level. And then of course, like everybody knows this, right? We are, we built a, a code graph. This, and that's what essentially, uh, is happening here. Um, I, I'm thinking no matter what we do, what kind of like, uh, data we want to expose from the rail side, from the relation, let's, let's call it from the relation database to the graph database. It should not, um, I mean, to put it probably in nice words, but like it should not pollute the rails code. So it's, it either should be either on the, on the database. On the debate on database side, like as triggers, as we mentioned before, like we, we create some, for example, like. Like every time we, if every time we update the issues table, the, the status of the issue. Okay. Okay. It should, it should create some items somewhere in some table that can be processed by the graph database, by the stream. Because that's, I think you mentioned in the call, what happens if the, what happens if, uh, uh, if siphon is down or something like that, are we losing some data? So in this case, in this case here, like, uh, once we arrived to the database, we can mark it done as long as we have. pulled that from this stream table and we have already processed that we all have already something similar to with the loose foreign keys. Uh, we have triggers on database level. So we want them as process as long as like, okay, we have processed these items. We can do the same thing here, but probably also we, we should make it easier. Let's say that some team, they are building some feature and, uh, they are building some feature and they want to make sure that this data, and they are adding new table and they want to make sure that this data is also propagated to the graph. That's what I was, you're literally hitting exactly what I was proposing before. Basically we make it knowledge graph. Eventually it can just read the schema from either rails or from somewhere or the, or the, the transformations that is. And then the team that's building vulnerabilities, new table or something can just add, like, you just add the few things into siphon for instance. And then you define the, the ETL transformations and then you're good to go essentially. Uh, how do we solve that for loose foreign key? Just to give you an idea. We, we also, we, we have solved this. I mean, I didn't start with that also because you mentioned Adam, Adam, Adam and Dylan started working on that. We have some YAML file that, that defines like where, like which tables we want to process. Yeah. And the same thing can be for graph database. We can probably define some YAML file where like we, which data we want to, which tables we want to track, how do, if you want to do some transformation on the data. But if there's some, if there's some like, um, additional logic, that's not the, not in the database, this is where it might be a challenge. For example, here in the, in the, in the graph that you are showing that, uh, uh, closes issue. Okay. But for example, if you want to know which user closed the issue and prop and when we don't have this data and database, we, we might have it from the events table that I referred to before. I don't have experience so much with that table. I need to look at that and see what kind of events that we have there. So maybe, maybe we, we can't, we need still to pull some, some information from that table and also added to this event. So my point is like, we can define this in some YAML file somewhere to, to make sure how to show how this transformation is. And that's why I prefer to use something like siphon because it reads from the logical replication stream. Right. Right. And maybe it'd be, if we want data like that same entity, the, who's the user that closed the issue. Right. Um, and maybe that gets saved into the events table. We can, um, we can subscribe to the, that event and it's up to the consumer, AKA knowledge graph to wait for said event. That's something that I talked about with Adam. Cause he was asked, he was asking the way that you, uh, the way that siphon works at least is, is you subscribe to different topics, which can be separate tables, but they're subscribed individually. So you can't subscribe to like combining relationships, right? You can only subscribe to like, here's the updates from the user's table. Here's the updates from X, Y, Z. So, but this is the beauty. We have a property graph. So we can do merge statements, meaning we can create nodes and then add the edges as the edge relationship comes in as a separate event. Um, and that's one, one beauty of, of a property graph. So it's not like Postgres where you need another set of data. Like you, if you have a foreign key, right. Um, it'll, the transaction will fail if that foreign key doesn't exist or something. Um, probably you can create a node and create, I don't know if you can create a non-existent edge, but, um, you can create the edge when the other node arrives essentially. Um, but I don't think there's a problem that can be solved by safe and cannot be solved by triggers. I don't mean that triggers, it should be the long term solution. We, we want to do that just to speed it up. But yeah, anything you, you can do it here. And they're like, it's, it's basically, you are taking the same data on database. But the problem is if there's some data that's not in the evidence table and the only rails knows about that. Like, for example, like I knew, I remember about some, to give you an idea. I remember about some tables that we don't, we don't track the user that created that data. Okay. So only rails knows about it. And the, in the time when the event happened, we know which user, but we don't persist it on the database. And this is where you might lose some data because it's not on database. It's not on the stream. You cannot get it from, from Siphon as well. It's, it's only rails and it was there in the memory. And it's just, it's vanished. Yeah. That's a problem. Well, do you think, do you foresee us having to go in and try to track that data via some. Maybe, maybe we can add still support for some exceptional cases where like rails can throw some data into the, for, for the graph database to process. Yeah. Yeah. Um, it might be a problem because like, uh, when, when, like, when do you want to do that? Because what happens, like, maybe you, you, you, like you put this data into the stream for the graph and then the database transaction is not committed. Yeah. Um, so there's some, there's some problem. And, uh, like, uh, when do you want to do it? Do you want to do it after that, after, after the transaction has been committed? What if the application goes down between that and you don't want to do it within the transaction time? We can, because we, we don't want to, uh, open connections to some other service. If, uh, if. I know. Yeah. It can get very hairy. So that's, um, Dennis was telling me that we should use the data insights platform. Um, cause maybe that data can be persisted to one of the data and gestures. Um, so we would subscribe to tables to data that we need. Right. This is why I think it's more of an engine data engineering problem than say, um, like a search problem. I know Dimitri is going to be mad at me for that, but, um, he's smiling right now. I don't know if the recording will show it, but, um, so. Um, that's why I'm saying we can. What's the beauty of this from what I saw from what Dennis was explaining is that this, like, you can persist data in other ways of collecting it. Right. And so when the data insights platform is deployed and deployable for each self-managed customer, if we're subscribing to a single NAS server, this handles. Dimitri, can you go over the things that, the type of things that handles like all the different edge cases that it can handle? Um, what do you mean? Sorry. Like if you were to do it, if you were to subscribe to something via web hooks, right? Like imagine Omar was saying, um, we want to persist the user's action from, um, uh, who created the issue. Right. We don't persist that to postgres, but we still want to capture that data. Right. Imagine we were doing over. We decided to capture that over like a web hook that, like you were saying, what if the instance goes offline? What if that data is missed? Um, that's why I think having a platform like this, that you can subscribe to the events and you have the redundancy of Nats. That's where I think would, would really help us. Um, and we wouldn't have to worry about as many, uh, data race conditions, et cetera. Um, that's what you were saying there was like other things Nats can help us do that logic that we would have to build into either postgres or in the application there. Is that, isn't that correct? Yeah. I think we can even use it as an event bus, maybe even between indexer and web server, uh, containers. I think it opens up a lot of possibilities right now. The only event stream is based on sidekick and it's in rails. Maybe we can duplicate these events into Nats as well and subscribe to these. Yeah. I think we've, we've been wanting to add an event bus like Nats for a really long time. And it would be really cool to finally have it. Yeah. Um, so yeah, so that's, so that's just high level. I want the whole team to start thinking about this cause we're going to need to move on it very quickly. Um, but in the meantime, uh, I just want to make sure we're also all good on like the different parts everybody's working on. Right. Right. In, in the immediate term. Um, so, um, I, I was moving, I was thinking we can use this as the, the primary epic for now. I relabeled it to code indexing, right? Cause SDLC indexing will probably need its own epic and its own stuff. Um, and I moved it to rust cause, um, we've been liking using the ethics under the rust org. Um, maybe, uh, if you want before, um, before like we, um, before we go to the, to the other call. Um, I can share my, my skin really quickly just to show you this event, uh, the class. I think that's worth looking at. Um, I, I will also link it to, to you later. Uh, share screen. I haven't shared my skin for awhile. So I forgot where that is. I know you guys have to leave. That's why I was, um, um, jumping over. Did you get it? Okay. Can you see the, uh, can you see my screen? Yep. So this is the event. Uh, this is the event model. So like everything here is stored in the, the events table. So we have all like sorts of actions, which is created, updated, closed, reopened, pushed. So we have so many things and they also have many targets. It can be issue note project. This is only one table in database. Uh, so this is all like, they are all like many, many events side, but they are sharing. the same event. Like imagine if you are just like pulling only that, uh, table events, and then you link that table with, with all these other tables, issues, milestones, notes. This is already a good start. Um, this can be also, this can be already done already by, by triggers. So, um, and this is already a lot of information. The thing that in, in the future, if you want to capture some information, that's not, that's probably not in the, not in this, in this table. Maybe we can add more, more events side, but I'm not sure if you want to contribute to making this table bigger, by the way, this table is the same table that's rendering that your activity on the dashboard. Yes. Yeah. When you, when you go to someone's user, I, yeah, I know exactly. Yeah. Yeah. Uh, I think this, that is already in the database. Like you can see which user authored database, uh, authored issue and these things. So, but this is already good enough to, um, to look at. Yeah. Yeah. I've just added event store. I I've mentioned before, and it's based on sidekick and it's not persisted anywhere. So it's not available in the database. And I think. And store that it's event underscore store or whatever. Yeah. I've, I've shared the documentation link in our agenda. Yes. And it's based on sidekick. So. Everything disappears. Yes. Yeah. Um, but that could theoretically maybe persist to the data insights platform. Like you send that event when it happens. Yeah. And it is. And Bogdan was saying in the last call that. Um, the having it go, having it stored in Nats is you, as long as that uptime is correct, we don't have to worry about knowledge graph being down and that data living in some queue and postcards and waiting to go out. It's just in this ephemeral service essentially. And waiting for the event to be cleared out. Um, so yeah, there are definitely some things to think through there. Um, I think either way, we probably want to keep the code indexing task queue architecture that we have. Um, unless you guys think like we should do the same thing, but again, I don't want us to have to completely re-architect, um, first since we already have the design document now. Um, but what do you guys think? I don't know if we are going to use the same, uh, endpoints, like, uh, the same heartbeat endpoints that we use for SDLC as well. Like maybe we can still, like, we, we have like these events index graph, delete graph. It's not implemented yet. Yeah. So maybe we can still use these events to tell, to tell, uh, the knowledge graph proxy. Hey, there's some indexing event, but it's, uh, the namespace, but it's not for project for its namespace. So go and put the data one way or another. Yeah. Um, yeah, I definitely prefer us to try to see if we can make something like Siphon work. Um, as long as the production timeline isn't too far out. Um, again, we'll know tomorrow when we talk to Adam. Um, uh, cause I, I prefer us like not write a bunch of logic for postgres triggers and then have to rewrite it. Um, like a few months down the line to, uh, put it in Siphon. Like if we can invest our resources and in helping push Siphon, um, that would also be, I think, good. Um, I, I think if we had Nets when we started working on Zooked, we would have just used it or RabbitMQ or Kafka, it doesn't really matter, but we have to implement these tasks because we didn't, don't have an event, basically an event pass. Event pass. Yeah. Okay. Um, we have to go to the other code for the, uh, yes. Um, but I think, uh, before you guys drop, I think we're all good on again. You can disable this from. Um, uh, I think we're all good on like everyone who's working on what, right? Cause Bogdan and Jean-Gabriel are taking open telemetry metrics, observability. I think they have some questions on like understanding how Zooked and whatnot work. Yeah. We have some questions, but since you guys have to go, I guess we'll do it async, but essentially we need to figure out like, how is it set up with Zoek? And how would the knowledge graph be set up within like the Zoek infra? And then from there, I guess pretty much everything would be answered. But let's, let's have this discussion in like the, in the epic. I'll take you guys and then you can chime in. That's good. Thank you. Um, yeah. And then Mike would be focusing on re-indexing, right? And database stuff. Yep. Okay. So Omar, Mike, you guys probably want to pair. Um, yeah. We'll pair, especially on like the Giddly stuff. Cause I don't have a good grasp of what we can get and how we can get it. So yeah. Um, our primary concern will just be getting diffs. So that should be enough to have re-indexing work. Um, obviously we can't rely on a file voucher. So. Okay. Okay. Sorry that we have to go. All right, guys. Yeah. Cool. Right. All right. Um, do you guys want to continue to, you guys have any questions, issues? Um, put together like most of the points that we were talking about in the last meeting. Cause we do have, I had to, there's definitely some action items. Like we need to test, uh, Kuzu, uh, multiple Kuzu connections. Yeah. Attaching to, or like, sorry, attaching multiple Kuzu databases to the single connection. See if that's possible. I will have an issue open or just a exploratory MR open for that today with stats. That should be pretty easy. Okay. Yeah. Um, same thing with the other action item, the, um, versus. Yeah. The performance stuff. I've been, I've been cleaning up the core indexer and there is a lot of low hanging fruit. Yeah. I, I don't want to be hyperbolic or hyperbolic sword. It sucks. The core sucks. We did it in such a rush that, um, there's just data structures that don't need to be there. So I will have something for y'all today. Hopefully end of day, hopefully deleting close to. Do you want me to create, do you want me to create an issue or do you want to create two issues for each one of those? Just so we can, cause those are good supporting evidence on. Should we go as something like Neo4j or Kuzu especially? Yes. I will. I will create both the issues and have the data dump there and link them to like two spike MRs. I think that'll just be the easiest way to do it. Okay. Yeah. Um, so I think, yeah, I think everything else is, is good. Um, I, I, I like that we have events table. I, I think if we siphon, just events table, we will be able to solve like at least the first, first use cases, like, uh, for issues and Mars, uh, comments. Um, yeah, issues and Mars comments, ethics gives us like a really good foundation. Uh, also, I like, I like approach. If it's gonna be rails that pushes data to us, then us trying to pull from rails. Yes. Uh, yeah, if, in, if, in future, if we need like more data, we can probably just like extend rails, uh, event system to just. push to our own, uh, like event bus, whatever it's gonna be like Kafka rabbit MQ, whatever was mentioned. I think it's Nats, Nats as well. Nats. Yeah. Uh, yeah. So if rails gonna push, uh, stuff there and we just pull from the queue, uh, it's gonna like decouple us from slowness of rails. Yes. For sure. Uh, yeah. Um, that's why I wanna avoid doing postgres triggers. Like I, I, I like the idea, but it might be better that we say, Hey, we're going with the better long-term approach, um, out of the gate and just push, push for getting that. Um, and because this is a business priority, I don't, I don't think it'll be an issue trying to, if we need to even help out, um, with, with siphon, I don't think it'd be an issue. Um, so, okay. Sounds good. Um, I think that's pretty much it guys. Do you guys have anything that you wanna go over other than the media stuff we're working on? I think I'm good. Um, memory usage for Monolith is gonna be down by 50% by the end of this day. Um, it, it might be down by even more. Uh, yeah. Not the peak. Parked file creation is like one or two gigs of memory. Parked file creation. Also, the amount of duplicate intermediate data structures that we have is ridiculous. So hopefully I, when I carve all that out, I don't think the peak will go down, but the average is gonna go down significantly. Are you touching the indexing crate? I'm touching. Yeah, I've, I've pretty much. It's not a rework. Oh, no. We'll, I'll make sure that your changes are in first and we'll have a utilization data there so that if I break anything, I can go back and make sure. We also have good end to end coverage, so it should, we should know if we broke something. Yeah. No, I'm not, I'm not as concerned about that as just accidentally reverting some of Bogdan's changes. Oh, okay. Yeah, yeah, yeah. Yeah, the, the end to end coverage is good. We, it should behave as, as expected. So, yeah. Uh, yeah, because in my case, uh, I already used some of the memory. Like on the indexing stage, just by rearranging like data structures that we have. Okay. I have no idea of what a lot of them are doing, but I see, for example, that we, we needed like part of the data in the beginning of indexing stage and then we no longer need it. So I just, uh, drop like part of the data that we have. Okay. Yeah. Compilers that we can drop that. Okay. And it drops that. Uh, so yeah, maybe something similar you can have in parquet file, uh, parquet creation files where you have like iterator of data. Mm-hmm. So, uh, if you need to go like multiple times through that iterator, you can drop like some fields that you already processed. Correct. And then iterate again. So you have lower like watermark of the memory. Okay. Uh, yeah, that sounds about right. What I'm more focused on, do you know how we have like a million different, uh, relationship structs, um, for different types of relationships. We can actually just flatten all that out and, um, turn it into a single consolidated, uh, relationship structure. Uh, that's why I say that the average is gonna go down. I don't think the work I'm, I'm doing is gonna reduce the peak because, um, but it will reduce the average and it will remove like a thousand lines of code from our indexer, which is, which is very, that part is a disaster, especially the analysis. The analysis are, so that'll all be cleaned up. Um, but just cause, um, if we can get that done sooner rather than later, that'll be good. Then we can forget about it. So, but. Okay. Cool. So Bogdan, I will just, I'm gonna go ham on my side, but when you do your changes, I'll just be very careful to make sure when I pull them in that I'm not undoing all of them. So. Okay. Have we set up, um, GDK and everything with the Zoekt architecture yet? Not yet? Me, no. I've just been focused on the core so far. Okay. Getting ready for, uh, re-indexing V2. We'll probably want to do that soon. Um, just so you guys can start getting familiar with it. Okay. Do you have ever seen, like, have you gone through that? Do you have ever seen set up? Yeah. I was excited about that and recall. I was sure. Uh, we were not sure how much you webcoded, like, from scratch. No, I got it. I got it working. Um, yeah. All right. So you have to get, you have to set up GDK. You have to set up, uh, Zoekt. I'll link you guys this stuff. Um, definitely get GDK working. Um, I mean, you guys can find GitLab development kit and I'll send it to you. Yeah. I have GDK installed. I was never able to get it to, like, actually, I was able to get it to work, but it was, it was, like, it was, like, four months ago. So. Uh, GDK. It's part of, uh, backend engineer onboarding. Mm-hmm. But nobody needs that if you're not in Rails team. Yeah. I guess my way of looking at it was just, when I'll need it, I'll set it up. Oh. Until then, there is just no point. Trust me. If you wanna do it earlier than later, because when you do need it, you're gonna be, it, there's many things like.",
+  "segments": [
+    {
+      "start": 1.97,
+      "end": 9.97,
+      "text": "Sweet. I don't know. It always does this. I always, like, make hand gestures and then it lets me know."
+    },
+    {
+      "start": 9.97,
+      "end": 27.97,
+      "text": "All right. So first question, has everybody been able to, I mean, Bogdan and team, I think, were brought up to speed in the last sync, but did you guys get a chance to watch at least a little bit of the last sync?"
+    },
+    {
+      "start": 27.97,
+      "end": 31.97,
+      "text": "I know it was a little bit long. We had definitely a long session, but..."
+    },
+    {
+      "start": 31.97,
+      "end": 39.97,
+      "text": "I still have, like, probably a few minutes to finish. Yeah, but I, so I watched most of it."
+    },
+    {
+      "start": 39.97,
+      "end": 43.97,
+      "text": "Most of it was discussion around the design document already, so I'm already familiar."
+    },
+    {
+      "start": 43.97,
+      "end": 45.97,
+      "text": "Stuff you guys are ready. Yeah."
+    },
+    {
+      "start": 45.97,
+      "end": 51.97,
+      "text": "But there was some questions still, like, regarding the SDLC data, which is..."
+    },
+    {
+      "start": 51.97,
+      "end": 61.97,
+      "text": "I still don't have info about, so regarding, like, when you drew the namespace hierarchy and where, like, we indexed."
+    },
+    {
+      "start": 61.97,
+      "end": 64.97,
+      "text": "That's a good question, but I don't know. I don't have an answer yet."
+    },
+    {
+      "start": 64.97,
+      "end": 72.41,
+      "text": "Oh, wait. Jean-Gabriel. I have to... Why is he... Why do I have to admit him every time? It's weird."
+    },
+    {
+      "start": 72.41,
+      "end": 77.94,
+      "text": "Okay. Yeah. I don't know why I have to admit him. Okay. That's cool."
+    },
+    {
+      "start": 77.94,
+      "end": 84.94,
+      "text": "Yeah. That was the main thing we ended. So note we ended on during the thing."
+    },
+    {
+      "start": 84.94,
+      "end": 88.94,
+      "text": "So there's... Here's the thing. So this is what I'm thinking. Let me know if you guys..."
+    },
+    {
+      "start": 88.94,
+      "end": 97.94,
+      "text": "Again, it's up to the team. That's the beauty. I think we have a lot of strong engineers here that we can make really good decisions."
+    },
+    {
+      "start": 97.94,
+      "end": 120.85,
+      "text": "This is like a super team, in my opinion. But I could be biased. So basically, we ended basic... There's three streams here. There's... And I put this... I started the call in the last call about this. Let me just share my screen."
+    },
+    {
+      "start": 120.85,
+      "end": 132.85,
+      "text": "And there's like a few things we need to think about. All right. So everybody knows this, but we already have the local code index, right?"
+    },
+    {
+      "start": 132.85,
+      "end": 146.85,
+      "text": "There's still a ton of work to go there, but priority is this, right? And I know it's a business priority based on what I talked with Jordan. I still need to post that recording."
+    },
+    {
+      "start": 146.85,
+      "end": 151.85,
+      "text": "So we definitely need to start looking at SDLC data indexing."
+    },
+    {
+      "start": 151.85,
+      "end": 169.85,
+      "text": "And the sooner we figure out the... I'm working on like my own POC, but the sooner we figure out some of the unanswered questions, and maybe it'd be best use of our time to figure out what are the unanswered questions,"
+    },
+    {
+      "start": 169.85,
+      "end": 173.85,
+      "text": "the better, especially around SDLC indexing."
+    },
+    {
+      "start": 173.85,
+      "end": 186.85,
+      "text": "But the two categories here are the server code indexing, which is the current architecture that we currently have, which is largely Zoet, right? Everybody knows this. I think everybody's up to speed on this."
+    },
+    {
+      "start": 186.85,
+      "end": 196.85,
+      "text": "And then there's the SDLC indexing and picking the correct architecture and or database for that, right?"
+    },
+    {
+      "start": 196.85,
+      "end": 219.85,
+      "text": "And so the server-side stuff, I think no matter what we do here, a lot of what we're building, unless you guys disagree, if we change, for instance, the data source, where we're getting the events, that being siphoned, I don't think much of the stuff that we're building plumbing-wise will change."
+    },
+    {
+      "start": 219.85,
+      "end": 232.85,
+      "text": "Maybe like the... Well, again, maybe we want to keep the same architecture for code indexing and then bring in Siphon for the other types of data."
+    },
+    {
+      "start": 232.85,
+      "end": 237.85,
+      "text": "Those are questions that we'll need to figure out."
+    },
+    {
+      "start": 237.85,
+      "end": 244.85,
+      "text": "And then tomorrow, Dimitri and I are meeting with Adam to get a better picture on Siphon."
+    },
+    {
+      "start": 244.85,
+      "end": 256.85,
+      "text": "But based on my talks with Dennis and Nitin and Adam, did I send you guys the conversation between Adam and I?"
+    },
+    {
+      "start": 256.85,
+      "end": 260.85,
+      "text": "I think I sent... Let me send it to you guys."
+    },
+    {
+      "start": 260.85,
+      "end": 265.85,
+      "text": "I thought that when you mentioned before, I thought he joined in the same code."
+    },
+    {
+      "start": 265.85,
+      "end": 269.85,
+      "text": "So when I was watching it, I expected that..."
+    },
+    {
+      "start": 269.85,
+      "end": 272.85,
+      "text": "Here, I'll send it to you guys."
+    },
+    {
+      "start": 272.85,
+      "end": 275.85,
+      "text": "Let me send it to..."
+    },
+    {
+      "start": 275.85,
+      "end": 277.85,
+      "text": "Who's Adam? Adam..."
+    },
+    {
+      "start": 277.85,
+      "end": 281.85,
+      "text": "I had it in draft, but I didn't send it. That's funny."
+    },
+    {
+      "start": 281.85,
+      "end": 284.85,
+      "text": "I should have sent that a while ago. Sorry, guys."
+    },
+    {
+      "start": 284.85,
+      "end": 286.85,
+      "text": "Oh, okay."
+    },
+    {
+      "start": 286.85,
+      "end": 292.85,
+      "text": "So I chatted with Adam yesterday and TLDR is..."
+    },
+    {
+      "start": 292.85,
+      "end": 296.85,
+      "text": "It seems like it is possible to source the data."
+    },
+    {
+      "start": 296.85,
+      "end": 303.85,
+      "text": "So my plan is to like basically try to come up with a little POC to see if we can get it working."
+    },
+    {
+      "start": 303.85,
+      "end": 310.85,
+      "text": "Like just simple subscribing to events and getting them and then maybe getting some of the events that we're interested in."
+    },
+    {
+      "start": 310.85,
+      "end": 318.85,
+      "text": "The only problem like Dimitri was saying is the prod timeline, right?"
+    },
+    {
+      "start": 318.85,
+      "end": 326.85,
+      "text": "But when I talked to Dennis about this, they're going through that whole review process anyways."
+    },
+    {
+      "start": 326.85,
+      "end": 334.85,
+      "text": "And then I was looking at some of the infrastructure readiness tickets that Jan had up."
+    },
+    {
+      "start": 334.85,
+      "end": 336.85,
+      "text": "We haven't gone through that. It seems like yet."
+    },
+    {
+      "start": 336.85,
+      "end": 342.16,
+      "text": "The review, you know, you guys know what I'm talking about?"
+    },
+    {
+      "start": 342.16,
+      "end": 350.5,
+      "text": "Readiness, like there is already some issue where like Daniel started with that."
+    },
+    {
+      "start": 350.5,
+      "end": 360.5,
+      "text": "But if you are talking about the same thing, because Jan passed this to me as like a point of contact."
+    },
+    {
+      "start": 360.5,
+      "end": 365.5,
+      "text": "And he decided to split that into two parts, like indexing part and the query part."
+    },
+    {
+      "start": 365.5,
+      "end": 366.5,
+      "text": "Oh, okay."
+    },
+    {
+      "start": 366.5,
+      "end": 370.5,
+      "text": "I can link it now in the document as a..."
+    },
+    {
+      "start": 370.5,
+      "end": 372.5,
+      "text": "Yeah. Can you do that?"
+    },
+    {
+      "start": 372.5,
+      "end": 373.5,
+      "text": "Yeah."
+    },
+    {
+      "start": 373.5,
+      "end": 378.5,
+      "text": "That would be good to know."
+    },
+    {
+      "start": 378.5,
+      "end": 383.5,
+      "text": "But we'll see what Adam says and get an estimate on the timeline."
+    },
+    {
+      "start": 383.5,
+      "end": 391.5,
+      "text": "because if it's say, you know, max a few months and or we can help out with that."
+    },
+    {
+      "start": 391.5,
+      "end": 396.5,
+      "text": "I mean, unless Dimitri, you have concerns with using Syphon."
+    },
+    {
+      "start": 396.5,
+      "end": 400.5,
+      "text": "It seems like the correct architectural move."
+    },
+    {
+      "start": 400.5,
+      "end": 405.5,
+      "text": "I definitely agree that's the best long-term solution."
+    },
+    {
+      "start": 405.5,
+      "end": 408.5,
+      "text": "So my only concern was with the timeline essentially."
+    },
+    {
+      "start": 408.5,
+      "end": 409.5,
+      "text": "Yeah."
+    },
+    {
+      "start": 409.5,
+      "end": 411.5,
+      "text": "And I think it will be more clear tomorrow."
+    },
+    {
+      "start": 411.5,
+      "end": 412.5,
+      "text": "Okay."
+    },
+    {
+      "start": 412.5,
+      "end": 428.42,
+      "text": "Um, so yeah, so those are the, um, if we go back here, um, I don't know Omar how much you missed."
+    },
+    {
+      "start": 428.42,
+      "end": 436.42,
+      "text": "But essentially what we're the, where we, uh, left off is we have server code indexing and we have the SDLC indexing."
+    },
+    {
+      "start": 436.42,
+      "end": 446.42,
+      "text": "Yeah, that, that I saw just like to, uh, um, like, um, I mean, I only have like 10 minutes left from the call."
+    },
+    {
+      "start": 446.42,
+      "end": 453.42,
+      "text": "So I, I already have seen that and I have seen some of the questions, but I want to maybe get back to the SDLC part."
+    },
+    {
+      "start": 453.42,
+      "end": 463.42,
+      "text": "And just to, um, I mean, uh, from my perspective, as I mentioned in the last call, like I'm so focused now on the code indexing part and trying to get something."
+    },
+    {
+      "start": 463.42,
+      "end": 466.42,
+      "text": "That's why I couldn't focus so much on the SDLC."
+    },
+    {
+      "start": 466.42,
+      "end": 476.42,
+      "text": "But my problem at the moment with the SDLC, and that's why I was, I was calling for document to read is that I know that we want to build graph of the, of the data that we have on Postgres."
+    },
+    {
+      "start": 476.42,
+      "end": 479.42,
+      "text": "But I don't know what kind of problems that we want to solve."
+    },
+    {
+      "start": 479.42,
+      "end": 480.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 480.42,
+      "end": 481.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 481.42,
+      "end": 484.42,
+      "text": "And what, I, what kind of questions we want to answer with it?"
+    },
+    {
+      "start": 484.42,
+      "end": 485.42,
+      "text": "Yes, of course."
+    },
+    {
+      "start": 485.42,
+      "end": 498.42,
+      "text": "So answer like, for example, like, are we going to build graph from the issues project namespaces, uh, like these core models that, uh, or we are going to build a graph from everything."
+    },
+    {
+      "start": 498.42,
+      "end": 503.42,
+      "text": "So it's like, it's, it's the same Postgres database, but represents as a graph."
+    },
+    {
+      "start": 503.42,
+      "end": 504.42,
+      "text": "Yes."
+    },
+    {
+      "start": 504.42,
+      "end": 508.42,
+      "text": "That's, that's, that's exactly what, um, that's like the perfect question."
+    },
+    {
+      "start": 508.42,
+      "end": 515.42,
+      "text": "So that's why we're also putting together this, um, more product oriented thing."
+    },
+    {
+      "start": 515.42,
+      "end": 517.42,
+      "text": "This is what I'm putting together with Jordan."
+    },
+    {
+      "start": 517.42,
+      "end": 521.42,
+      "text": "Um, and he's going to most likely create an Epic or some type of issue."
+    },
+    {
+      "start": 521.42,
+      "end": 527.42,
+      "text": "outlining what are the questions where, or the problems that we're trying to solve with the graph database."
+    },
+    {
+      "start": 527.42,
+      "end": 537.42,
+      "text": "And what is, what can a graph database solve that these traditional tools and OLTP, you know, like a Postgres database can't solve as easily."
+    },
+    {
+      "start": 537.42,
+      "end": 538.42,
+      "text": "Right."
+    },
+    {
+      "start": 538.42,
+      "end": 542.42,
+      "text": "Um, and I was, this is also what I was talking about with Dennis, like, um, just simple things."
+    },
+    {
+      "start": 542.42,
+      "end": 549.42,
+      "text": "Like if you want to do aggregated queries and you want to do more analytical type of queries, Postgres has a 15 second timeout."
+    },
+    {
+      "start": 549.42,
+      "end": 550.42,
+      "text": "Right."
+    },
+    {
+      "start": 550.42,
+      "end": 551.42,
+      "text": "Right."
+    },
+    {
+      "start": 551.42,
+      "end": 554.42,
+      "text": "And, um, that I didn't know."
+    },
+    {
+      "start": 554.42,
+      "end": 558.42,
+      "text": "And so that's like a huge blocker for analytical queries."
+    },
+    {
+      "start": 558.42,
+      "end": 579.42,
+      "text": "And so when you have a graph database, you can do more of these analytical queries, but just like we're putting together these use cases on like where we can tie the code graph that we've already built for the code indexing and how the server side items can tie down to that."
+    },
+    {
+      "start": 579.42,
+      "end": 585.42,
+      "text": "And we should, and Dennis's recommendation is we don't say we want to index every server side item in the world."
+    },
+    {
+      "start": 585.42,
+      "end": 586.42,
+      "text": "That would be a terrible idea."
+    },
+    {
+      "start": 586.42,
+      "end": 587.42,
+      "text": "Right."
+    },
+    {
+      "start": 587.42,
+      "end": 595.42,
+      "text": "Let's start with a subset of items that we want to index and, um, orient those around the use case."
+    },
+    {
+      "start": 595.42,
+      "end": 607.42,
+      "text": "So Jordan and I were thinking basically, um, starting with say an issue MR and maybe comments if it's not too complex."
+    },
+    {
+      "start": 607.42,
+      "end": 610.42,
+      "text": "And MR, of course, or all the data around the MR."
+    },
+    {
+      "start": 610.42,
+      "end": 614.42,
+      "text": "So the changed files, et cetera, and then tying that to the code graph."
+    },
+    {
+      "start": 614.42,
+      "end": 616.42,
+      "text": "Um, does that make sense?"
+    },
+    {
+      "start": 616.42,
+      "end": 617.42,
+      "text": "Does that make sense?"
+    },
+    {
+      "start": 617.42,
+      "end": 629.42,
+      "text": "And so like theory, like, I mean, again, theoretically, but I'm, I'm sure everybody on this call knows when you have a graph representation of what I was showing, uh, what I've been showing people."
+    },
+    {
+      "start": 629.42,
+      "end": 634.42,
+      "text": "When you have this graph, right in the old world, right."
+    },
+    {
+      "start": 634.42,
+      "end": 635.42,
+      "text": "You have a project."
+    },
+    {
+      "start": 635.42,
+      "end": 642.42,
+      "text": "Let's say you want to the same question here, but what, with this completed issue, what was the business context for the change?"
+    },
+    {
+      "start": 642.42,
+      "end": 650.42,
+      "text": "And where were the specific classes that were impacted by, um, you know, uh, impacted in these two services?"
+    },
+    {
+      "start": 650.42,
+      "end": 651.42,
+      "text": "Right."
+    },
+    {
+      "start": 651.42,
+      "end": 654.42,
+      "text": "So imagine these are two projects, but let's do one project for now."
+    },
+    {
+      "start": 654.42,
+      "end": 659.42,
+      "text": "In the old world that you'd have a tool call or postcards query, whatever it is."
+    },
+    {
+      "start": 659.42,
+      "end": 671.42,
+      "text": "Um, API call for getting a, the project, um, uh, be the particular issue, which is the business context, find which MRs are related to this issue."
+    },
+    {
+      "start": 671.42,
+      "end": 680.42,
+      "text": "So this MR could actually be related to this issue, but it could not be linked, but you can see there's ways that through the network graph, it can discover the MR."
+    },
+    {
+      "start": 680.42,
+      "end": 687.42,
+      "text": "Um, but it then would have to get the issue and do a separate API call because closes issues."
+    },
+    {
+      "start": 687.42,
+      "end": 693.42,
+      "text": "Uh, the it's called issue links API, I think is a separate API call, or it would be a separate tool."
+    },
+    {
+      "start": 693.42,
+      "end": 700.42,
+      "text": "Um, same thing for the MR and same thing for, um, you would have to do this issue."
+    },
+    {
+      "start": 700.42,
+      "end": 716.42,
+      "text": "Um, you'd have to do a set, uh, separate API calls for each MR or list MRs, get MR details, get the change files for a given MR or the diff for an MR, and then get the, um, uh, then go into the code graph."
+    },
+    {
+      "start": 716.42,
+      "end": 721.42,
+      "text": "And in the old world, you have to do graph and iterate through the files."
+    },
+    {
+      "start": 721.42,
+      "end": 728.42,
+      "text": "Right now, when you have an SDLC graph, you can iterate through all of these."
+    },
+    {
+      "start": 728.42,
+      "end": 735.42,
+      "text": "You can give the agent just nearest neighbors with depth two, uh, like a depth two limit."
+    },
+    {
+      "start": 735.42,
+      "end": 741.42,
+      "text": "And it can literally just start with any one of these entry nodes, discover the immediate MRs."
+    },
+    {
+      "start": 741.42,
+      "end": 747.42,
+      "text": "and in like two, two calls, you reduce the number of two calls by like, by like two."
+    },
+    {
+      "start": 747.42,
+      "end": 754.42,
+      "text": "And on top of that, you don't have to build separate tools, engineering resources for each one of these API calls."
+    },
+    {
+      "start": 754.42,
+      "end": 758.42,
+      "text": "Um, you can do that in all in one shot."
+    },
+    {
+      "start": 758.42,
+      "end": 775.42,
+      "text": "And then eventually if we build a language for the LLM to make its own type of graph queries, then, um, like, uh, you know, an RDF type of language or, um, uh, translate some type of query to Cypher."
+    },
+    {
+      "start": 775.42,
+      "end": 781.42,
+      "text": "We can allow it to traverse the graph and do aggregations and more analytical queries."
+    },
+    {
+      "start": 781.42,
+      "end": 786.42,
+      "text": "So like, you know, ranked by rank the issues by number of MRs or something, right."
+    },
+    {
+      "start": 786.42,
+      "end": 788.42,
+      "text": "Or top closing issues, et cetera."
+    },
+    {
+      "start": 788.42,
+      "end": 795.42,
+      "text": "Those types of questions would be way harder to answer with traditional GraphQL and, and, and Postgres."
+    },
+    {
+      "start": 795.42,
+      "end": 798.42,
+      "text": "Does that answer your question a little bit?"
+    },
+    {
+      "start": 798.42,
+      "end": 799.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 799.42,
+      "end": 800.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 800.42,
+      "end": 801.42,
+      "text": "This is, this is good."
+    },
+    {
+      "start": 801.42,
+      "end": 804.42,
+      "text": "Like at least it gives some idea about what kind of relationships we want."
+    },
+    {
+      "start": 804.42,
+      "end": 805.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 805.42,
+      "end": 808.42,
+      "text": "Um, can you link that document, please?"
+    },
+    {
+      "start": 808.42,
+      "end": 814.42,
+      "text": "Like I, I, I, I never came across that, uh, um, the, the Google docs."
+    },
+    {
+      "start": 814.42,
+      "end": 818.42,
+      "text": "Uh, oh, this one, uh, the knowledge as a service."
+    },
+    {
+      "start": 818.42,
+      "end": 819.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 819.42,
+      "end": 820.42,
+      "text": "Um, yeah, this one."
+    },
+    {
+      "start": 820.42,
+      "end": 821.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 821.42,
+      "end": 823.42,
+      "text": "It should be shared with everybody, but I'll share it with you."
+    },
+    {
+      "start": 823.42,
+      "end": 825.42,
+      "text": "You should get a, an email."
+    },
+    {
+      "start": 825.42,
+      "end": 829.42,
+      "text": "Actually, I'll just put it in the meeting."
+    },
+    {
+      "start": 829.42,
+      "end": 830.42,
+      "text": "Yes."
+    },
+    {
+      "start": 830.42,
+      "end": 831.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 831.42,
+      "end": 832.42,
+      "text": "That would be good."
+    },
+    {
+      "start": 832.42,
+      "end": 833.42,
+      "text": "There you go."
+    },
+    {
+      "start": 833.42,
+      "end": 839.42,
+      "text": "Um, so yeah, so that, that's basically kind of explaining high level."
+    },
+    {
+      "start": 839.42,
+      "end": 842.42,
+      "text": "And then of course, like everybody knows this, right?"
+    },
+    {
+      "start": 842.42,
+      "end": 844.42,
+      "text": "We are, we built a, a code graph."
+    },
+    {
+      "start": 844.42,
+      "end": 847.42,
+      "text": "This, and that's what essentially, uh, is happening here."
+    },
+    {
+      "start": 847.42,
+      "end": 854.42,
+      "text": "Um, I, I'm thinking no matter what we do, what kind of like, uh, data we want to expose"
+    },
+    {
+      "start": 854.42,
+      "end": 859.42,
+      "text": "from the rail side, from the relation, let's, let's call it from the relation database to the graph database."
+    },
+    {
+      "start": 859.42,
+      "end": 867.42,
+      "text": "It should not, um, I mean, to put it probably in nice words, but like it should not pollute the rails code."
+    },
+    {
+      "start": 867.42,
+      "end": 871.42,
+      "text": "So it's, it either should be either on the, on the database."
+    },
+    {
+      "start": 871.42,
+      "end": 878.42,
+      "text": "On the debate on database side, like as triggers, as we mentioned before, like we, we create some, for example, like."
+    },
+    {
+      "start": 878.42,
+      "end": 884.42,
+      "text": "Like every time we, if every time we update the issues table, the, the status of the issue."
+    },
+    {
+      "start": 884.42,
+      "end": 885.42,
+      "text": "Okay."
+    },
+    {
+      "start": 885.42,
+      "end": 886.42,
+      "text": "Okay."
+    },
+    {
+      "start": 886.42,
+      "end": 893.42,
+      "text": "It should, it should create some items somewhere in some table that can be processed by the graph database, by the stream."
+    },
+    {
+      "start": 893.42,
+      "end": 903.42,
+      "text": "Because that's, I think you mentioned in the call, what happens if the, what happens if, uh, uh, if siphon is down or something like that, are we losing some data?"
+    },
+    {
+      "start": 903.42,
+      "end": 910.42,
+      "text": "So in this case, in this case here, like, uh, once we arrived to the database, we can mark it done as long as we have."
+    },
+    {
+      "start": 910.42,
+      "end": 917.42,
+      "text": "pulled that from this stream table and we have already processed that we all have already something similar to with the loose foreign keys."
+    },
+    {
+      "start": 917.42,
+      "end": 919.42,
+      "text": "Uh, we have triggers on database level."
+    },
+    {
+      "start": 919.42,
+      "end": 923.42,
+      "text": "So we want them as process as long as like, okay, we have processed these items."
+    },
+    {
+      "start": 923.42,
+      "end": 927.42,
+      "text": "We can do the same thing here, but probably also we, we should make it easier."
+    },
+    {
+      "start": 927.42,
+      "end": 938.42,
+      "text": "Let's say that some team, they are building some feature and, uh, they are building some feature and they want to make sure that this data, and they are adding new table and they want to make sure that this data is also propagated to the graph."
+    },
+    {
+      "start": 938.42,
+      "end": 942.42,
+      "text": "That's what I was, you're literally hitting exactly what I was proposing before."
+    },
+    {
+      "start": 942.42,
+      "end": 944.42,
+      "text": "Basically we make it knowledge graph."
+    },
+    {
+      "start": 944.42,
+      "end": 951.42,
+      "text": "Eventually it can just read the schema from either rails or from somewhere or the, or the, the transformations that is."
+    },
+    {
+      "start": 951.42,
+      "end": 959.42,
+      "text": "And then the team that's building vulnerabilities, new table or something can just add, like, you just add the few things into siphon for instance."
+    },
+    {
+      "start": 959.42,
+      "end": 965.42,
+      "text": "And then you define the, the ETL transformations and then you're good to go essentially."
+    },
+    {
+      "start": 965.42,
+      "end": 967.42,
+      "text": "Uh, how do we solve that for loose foreign key?"
+    },
+    {
+      "start": 967.42,
+      "end": 968.42,
+      "text": "Just to give you an idea."
+    },
+    {
+      "start": 968.42,
+      "end": 970.42,
+      "text": "We, we also, we, we have solved this."
+    },
+    {
+      "start": 970.42,
+      "end": 974.42,
+      "text": "I mean, I didn't start with that also because you mentioned Adam, Adam, Adam and Dylan started working on that."
+    },
+    {
+      "start": 974.42,
+      "end": 980.42,
+      "text": "We have some YAML file that, that defines like where, like which tables we want to process."
+    },
+    {
+      "start": 980.42,
+      "end": 981.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 981.42,
+      "end": 982.42,
+      "text": "And the same thing can be for graph database."
+    },
+    {
+      "start": 982.42,
+      "end": 991.42,
+      "text": "We can probably define some YAML file where like we, which data we want to, which tables we want to track, how do, if you want to do some transformation on the data."
+    },
+    {
+      "start": 991.42,
+      "end": 1000.42,
+      "text": "But if there's some, if there's some like, um, additional logic, that's not the, not in the database, this is where it might be a challenge."
+    },
+    {
+      "start": 1000.42,
+      "end": 1006.42,
+      "text": "For example, here in the, in the, in the graph that you are showing that, uh, uh, closes issue."
+    },
+    {
+      "start": 1006.42,
+      "end": 1007.42,
+      "text": "Okay."
+    },
+    {
+      "start": 1007.42,
+      "end": 1019.42,
+      "text": "But for example, if you want to know which user closed the issue and prop and when we don't have this data and database, we, we might have it from the events table that I referred to before."
+    },
+    {
+      "start": 1019.42,
+      "end": 1021.42,
+      "text": "I don't have experience so much with that table."
+    },
+    {
+      "start": 1021.42,
+      "end": 1023.42,
+      "text": "I need to look at that and see what kind of events that we have there."
+    },
+    {
+      "start": 1023.42,
+      "end": 1030.42,
+      "text": "So maybe, maybe we, we can't, we need still to pull some, some information from that table and also added to this event."
+    },
+    {
+      "start": 1030.42,
+      "end": 1038.42,
+      "text": "So my point is like, we can define this in some YAML file somewhere to, to make sure how to show how this transformation is."
+    },
+    {
+      "start": 1038.42,
+      "end": 1043.42,
+      "text": "And that's why I prefer to use something like siphon because it reads from the logical replication stream."
+    },
+    {
+      "start": 1043.42,
+      "end": 1044.42,
+      "text": "Right."
+    },
+    {
+      "start": 1044.42,
+      "end": 1045.42,
+      "text": "Right."
+    },
+    {
+      "start": 1045.42,
+      "end": 1050.42,
+      "text": "And maybe it'd be, if we want data like that same entity, the, who's the user that closed the issue."
+    },
+    {
+      "start": 1050.42,
+      "end": 1051.42,
+      "text": "Right."
+    },
+    {
+      "start": 1051.42,
+      "end": 1054.42,
+      "text": "Um, and maybe that gets saved into the events table."
+    },
+    {
+      "start": 1054.42,
+      "end": 1064.42,
+      "text": "We can, um, we can subscribe to the, that event and it's up to the consumer, AKA knowledge graph to wait for said event."
+    },
+    {
+      "start": 1064.42,
+      "end": 1066.42,
+      "text": "That's something that I talked about with Adam."
+    },
+    {
+      "start": 1066.42,
+      "end": 1076.42,
+      "text": "Cause he was asked, he was asking the way that you, uh, the way that siphon works at least is, is you subscribe to different topics, which can be separate tables, but they're subscribed individually."
+    },
+    {
+      "start": 1076.42,
+      "end": 1080.42,
+      "text": "So you can't subscribe to like combining relationships, right?"
+    },
+    {
+      "start": 1080.42,
+      "end": 1084.42,
+      "text": "You can only subscribe to like, here's the updates from the user's table."
+    },
+    {
+      "start": 1084.42,
+      "end": 1086.42,
+      "text": "Here's the updates from X, Y, Z."
+    },
+    {
+      "start": 1086.42,
+      "end": 1089.42,
+      "text": "So, but this is the beauty."
+    },
+    {
+      "start": 1089.42,
+      "end": 1090.42,
+      "text": "We have a property graph."
+    },
+    {
+      "start": 1090.42,
+      "end": 1100.42,
+      "text": "So we can do merge statements, meaning we can create nodes and then add the edges as the edge relationship comes in as a separate event."
+    },
+    {
+      "start": 1100.42,
+      "end": 1105.42,
+      "text": "Um, and that's one, one beauty of, of a property graph."
+    },
+    {
+      "start": 1105.42,
+      "end": 1107.42,
+      "text": "So it's not like Postgres where you need another set of data."
+    },
+    {
+      "start": 1107.42,
+      "end": 1109.42,
+      "text": "Like you, if you have a foreign key, right."
+    },
+    {
+      "start": 1109.42,
+      "end": 1114.42,
+      "text": "Um, it'll, the transaction will fail if that foreign key doesn't exist or something."
+    },
+    {
+      "start": 1114.42,
+      "end": 1125.42,
+      "text": "Um, probably you can create a node and create, I don't know if you can create a non-existent edge, but, um, you can create the edge when the other node arrives essentially."
+    },
+    {
+      "start": 1125.42,
+      "end": 1130.42,
+      "text": "Um, but I don't think there's a problem that can be solved by safe and cannot be solved by triggers."
+    },
+    {
+      "start": 1130.42,
+      "end": 1132.42,
+      "text": "I don't mean that triggers, it should be the long term solution."
+    },
+    {
+      "start": 1132.42,
+      "end": 1134.42,
+      "text": "We, we want to do that just to speed it up."
+    },
+    {
+      "start": 1134.42,
+      "end": 1136.42,
+      "text": "But yeah, anything you, you can do it here."
+    },
+    {
+      "start": 1136.42,
+      "end": 1140.42,
+      "text": "And they're like, it's, it's basically, you are taking the same data on database."
+    },
+    {
+      "start": 1140.42,
+      "end": 1145.42,
+      "text": "But the problem is if there's some data that's not in the evidence table and the only rails knows about that."
+    },
+    {
+      "start": 1145.42,
+      "end": 1149.42,
+      "text": "Like, for example, like I knew, I remember about some, to give you an idea."
+    },
+    {
+      "start": 1149.42,
+      "end": 1156.42,
+      "text": "I remember about some tables that we don't, we don't track the user that created that data."
+    },
+    {
+      "start": 1156.42,
+      "end": 1157.42,
+      "text": "Okay."
+    },
+    {
+      "start": 1157.42,
+      "end": 1159.42,
+      "text": "So only rails knows about it."
+    },
+    {
+      "start": 1159.42,
+      "end": 1165.42,
+      "text": "And the, in the time when the event happened, we know which user, but we don't persist it on the database."
+    },
+    {
+      "start": 1165.42,
+      "end": 1168.42,
+      "text": "And this is where you might lose some data because it's not on database."
+    },
+    {
+      "start": 1168.42,
+      "end": 1169.42,
+      "text": "It's not on the stream."
+    },
+    {
+      "start": 1169.42,
+      "end": 1171.42,
+      "text": "You cannot get it from, from Siphon as well."
+    },
+    {
+      "start": 1171.42,
+      "end": 1174.42,
+      "text": "It's, it's only rails and it was there in the memory."
+    },
+    {
+      "start": 1174.42,
+      "end": 1177.42,
+      "text": "And it's just, it's vanished."
+    },
+    {
+      "start": 1177.42,
+      "end": 1178.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 1178.42,
+      "end": 1179.42,
+      "text": "That's a problem."
+    },
+    {
+      "start": 1179.42,
+      "end": 1186.42,
+      "text": "Well, do you think, do you foresee us having to go in and try to track that data via some."
+    },
+    {
+      "start": 1186.42,
+      "end": 1196.42,
+      "text": "Maybe, maybe we can add still support for some exceptional cases where like rails can throw some data into the, for, for the graph database to process."
+    },
+    {
+      "start": 1196.42,
+      "end": 1197.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 1197.42,
+      "end": 1198.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 1198.42,
+      "end": 1203.42,
+      "text": "Um, it might be a problem because like, uh, when, when, like, when do you want to do that?"
+    },
+    {
+      "start": 1203.42,
+      "end": 1211.42,
+      "text": "Because what happens, like, maybe you, you, you, like you put this data into the stream for the graph and then the database transaction is not committed."
+    },
+    {
+      "start": 1211.42,
+      "end": 1212.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 1212.42,
+      "end": 1214.42,
+      "text": "Um, so there's some, there's some problem."
+    },
+    {
+      "start": 1214.42,
+      "end": 1216.42,
+      "text": "And, uh, like, uh, when do you want to do it?"
+    },
+    {
+      "start": 1216.42,
+      "end": 1220.42,
+      "text": "Do you want to do it after that, after, after the transaction has been committed?"
+    },
+    {
+      "start": 1220.42,
+      "end": 1225.42,
+      "text": "What if the application goes down between that and you don't want to do it within the transaction time?"
+    },
+    {
+      "start": 1225.42,
+      "end": 1230.42,
+      "text": "We can, because we, we don't want to, uh, open connections to some other service."
+    },
+    {
+      "start": 1230.42,
+      "end": 1231.42,
+      "text": "If, uh, if."
+    },
+    {
+      "start": 1231.42,
+      "end": 1232.42,
+      "text": "I know."
+    },
+    {
+      "start": 1232.42,
+      "end": 1233.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 1233.42,
+      "end": 1234.42,
+      "text": "It can get very hairy."
+    },
+    {
+      "start": 1234.42,
+      "end": 1239.42,
+      "text": "So that's, um, Dennis was telling me that we should use the data insights platform."
+    },
+    {
+      "start": 1239.42,
+      "end": 1246.42,
+      "text": "Um, cause maybe that data can be persisted to one of the data and gestures."
+    },
+    {
+      "start": 1246.42,
+      "end": 1251.42,
+      "text": "Um, so we would subscribe to tables to data that we need."
+    },
+    {
+      "start": 1251.42,
+      "end": 1252.42,
+      "text": "Right."
+    },
+    {
+      "start": 1252.42,
+      "end": 1259.42,
+      "text": "This is why I think it's more of an engine data engineering problem than say, um, like a search problem."
+    },
+    {
+      "start": 1259.42,
+      "end": 1264.42,
+      "text": "I know Dimitri is going to be mad at me for that, but, um, he's smiling right now."
+    },
+    {
+      "start": 1264.42,
+      "end": 1268.42,
+      "text": "I don't know if the recording will show it, but, um, so."
+    },
+    {
+      "start": 1268.42,
+      "end": 1271.42,
+      "text": "Um, that's why I'm saying we can."
+    },
+    {
+      "start": 1271.42,
+      "end": 1279.42,
+      "text": "What's the beauty of this from what I saw from what Dennis was explaining is that this, like, you can persist data in other ways of collecting it."
+    },
+    {
+      "start": 1279.42,
+      "end": 1280.42,
+      "text": "Right."
+    },
+    {
+      "start": 1280.42,
+      "end": 1291.42,
+      "text": "And so when the data insights platform is deployed and deployable for each self-managed customer, if we're subscribing to a single NAS server, this handles."
+    },
+    {
+      "start": 1291.42,
+      "end": 1297.42,
+      "text": "Dimitri, can you go over the things that, the type of things that handles like all the different edge cases that it can handle?"
+    },
+    {
+      "start": 1297.42,
+      "end": 1300.42,
+      "text": "Um, what do you mean?"
+    },
+    {
+      "start": 1300.42,
+      "end": 1301.42,
+      "text": "Sorry."
+    },
+    {
+      "start": 1301.42,
+      "end": 1307.42,
+      "text": "Like if you were to do it, if you were to subscribe to something via web hooks, right?"
+    },
+    {
+      "start": 1307.42,
+      "end": 1316.42,
+      "text": "Like imagine Omar was saying, um, we want to persist the user's action from, um, uh, who created the issue."
+    },
+    {
+      "start": 1316.42,
+      "end": 1317.42,
+      "text": "Right."
+    },
+    {
+      "start": 1317.42,
+      "end": 1320.42,
+      "text": "We don't persist that to postgres, but we still want to capture that data."
+    },
+    {
+      "start": 1320.42,
+      "end": 1321.42,
+      "text": "Right."
+    },
+    {
+      "start": 1321.42,
+      "end": 1322.42,
+      "text": "Imagine we were doing over."
+    },
+    {
+      "start": 1322.42,
+      "end": 1328.42,
+      "text": "We decided to capture that over like a web hook that, like you were saying, what if the instance goes offline?"
+    },
+    {
+      "start": 1328.42,
+      "end": 1330.42,
+      "text": "What if that data is missed?"
+    },
+    {
+      "start": 1330.42,
+      "end": 1340.42,
+      "text": "Um, that's why I think having a platform like this, that you can subscribe to the events and you have the redundancy of Nats."
+    },
+    {
+      "start": 1340.42,
+      "end": 1343.42,
+      "text": "That's where I think would, would really help us."
+    },
+    {
+      "start": 1343.42,
+      "end": 1349.42,
+      "text": "Um, and we wouldn't have to worry about as many, uh, data race conditions, et cetera."
+    },
+    {
+      "start": 1349.42,
+      "end": 1360.42,
+      "text": "Um, that's what you were saying there was like other things Nats can help us do that logic that we would have to build into either postgres or in the application there."
+    },
+    {
+      "start": 1360.42,
+      "end": 1362.42,
+      "text": "Is that, isn't that correct?"
+    },
+    {
+      "start": 1362.42,
+      "end": 1363.42,
+      "text": "Yeah."
+    },
+    {
+      "start": 1363.42,
+      "end": 1370.42,
+      "text": "I think we can even use it as an event bus, maybe even between indexer and web server, uh, containers."
+    },
+    {
+      "start": 1370.42,
+      "end": 1373.42,
+      "text": "I think it opens up a lot of possibilities right now."
+    },
+    {
+      "start": 1373.42,
+      "end": 1378.42,
+      "text": "The only event stream is based on sidekick and it's in rails."
+    },
+    {
+      "start": 1378.42,
+      "end": 1384.42,
+      "text": "Maybe we can duplicate these events into Nats as well and subscribe to these."
+    },
+    {
+      "start": 1384.42,
+      "end": 1386.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1386.93,
+      "end": 1391.93,
+      "text": "I think we've, we've been wanting to add an event bus like Nats for a really long time."
+    },
+    {
+      "start": 1391.93,
+      "end": 1394.93,
+      "text": "And it would be really cool to finally have it."
+    },
+    {
+      "start": 1394.93,
+      "end": 1395.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1395.93,
+      "end": 1401.93,
+      "text": "Um, so yeah, so that's, so that's just high level."
+    },
+    {
+      "start": 1401.93,
+      "end": 1407.93,
+      "text": "I want the whole team to start thinking about this cause we're going to need to move on it very quickly."
+    },
+    {
+      "start": 1407.93,
+      "end": 1417.93,
+      "text": "Um, but in the meantime, uh, I just want to make sure we're also all good on like the different parts everybody's working on."
+    },
+    {
+      "start": 1417.93,
+      "end": 1418.93,
+      "text": "Right."
+    },
+    {
+      "start": 1418.93,
+      "end": 1419.93,
+      "text": "Right."
+    },
+    {
+      "start": 1419.93,
+      "end": 1421.93,
+      "text": "In, in the immediate term."
+    },
+    {
+      "start": 1421.93,
+      "end": 1432.93,
+      "text": "Um, so, um, I, I was moving, I was thinking we can use this as the, the primary epic for now."
+    },
+    {
+      "start": 1432.93,
+      "end": 1435.93,
+      "text": "I relabeled it to code indexing, right?"
+    },
+    {
+      "start": 1435.93,
+      "end": 1439.93,
+      "text": "Cause SDLC indexing will probably need its own epic and its own stuff."
+    },
+    {
+      "start": 1439.93,
+      "end": 1446.93,
+      "text": "Um, and I moved it to rust cause, um, we've been liking using the ethics under the rust org."
+    },
+    {
+      "start": 1446.93,
+      "end": 1454.93,
+      "text": "Um, maybe, uh, if you want before, um, before like we, um, before we go to the, to the other call."
+    },
+    {
+      "start": 1454.93,
+      "end": 1460.93,
+      "text": "Um, I can share my, my skin really quickly just to show you this event, uh, the class."
+    },
+    {
+      "start": 1460.93,
+      "end": 1462.93,
+      "text": "I think that's worth looking at."
+    },
+    {
+      "start": 1462.93,
+      "end": 1464.93,
+      "text": "Um, I, I will also link it to, to you later."
+    },
+    {
+      "start": 1464.93,
+      "end": 1467.93,
+      "text": "Uh, share screen."
+    },
+    {
+      "start": 1467.93,
+      "end": 1469.93,
+      "text": "I haven't shared my skin for awhile."
+    },
+    {
+      "start": 1469.93,
+      "end": 1470.93,
+      "text": "So I forgot where that is."
+    },
+    {
+      "start": 1470.93,
+      "end": 1473.93,
+      "text": "I know you guys have to leave."
+    },
+    {
+      "start": 1473.93,
+      "end": 1477.93,
+      "text": "That's why I was, um, um, jumping over."
+    },
+    {
+      "start": 1477.93,
+      "end": 1478.93,
+      "text": "Did you get it?"
+    },
+    {
+      "start": 1478.93,
+      "end": 1479.93,
+      "text": "Okay."
+    },
+    {
+      "start": 1479.93,
+      "end": 1481.93,
+      "text": "Can you see the, uh, can you see my screen?"
+    },
+    {
+      "start": 1481.93,
+      "end": 1482.93,
+      "text": "Yep."
+    },
+    {
+      "start": 1482.93,
+      "end": 1484.93,
+      "text": "So this is the event."
+    },
+    {
+      "start": 1484.93,
+      "end": 1485.93,
+      "text": "Uh, this is the event model."
+    },
+    {
+      "start": 1485.93,
+      "end": 1489.93,
+      "text": "So like everything here is stored in the, the events table."
+    },
+    {
+      "start": 1489.93,
+      "end": 1494.93,
+      "text": "So we have all like sorts of actions, which is created, updated, closed, reopened, pushed."
+    },
+    {
+      "start": 1494.93,
+      "end": 1498.93,
+      "text": "So we have so many things and they also have many targets."
+    },
+    {
+      "start": 1498.93,
+      "end": 1500.93,
+      "text": "It can be issue note project."
+    },
+    {
+      "start": 1500.93,
+      "end": 1502.93,
+      "text": "This is only one table in database."
+    },
+    {
+      "start": 1502.93,
+      "end": 1508.93,
+      "text": "Uh, so this is all like, they are all like many, many events side, but they are sharing."
+    },
+    {
+      "start": 1508.93,
+      "end": 1509.93,
+      "text": "the same event."
+    },
+    {
+      "start": 1509.93,
+      "end": 1514.93,
+      "text": "Like imagine if you are just like pulling only that, uh, table events, and then you link"
+    },
+    {
+      "start": 1514.93,
+      "end": 1519.93,
+      "text": "that table with, with all these other tables, issues, milestones, notes."
+    },
+    {
+      "start": 1519.93,
+      "end": 1520.93,
+      "text": "This is already a good start."
+    },
+    {
+      "start": 1520.93,
+      "end": 1525.93,
+      "text": "Um, this can be also, this can be already done already by, by triggers."
+    },
+    {
+      "start": 1525.93,
+      "end": 1528.93,
+      "text": "So, um, and this is already a lot of information."
+    },
+    {
+      "start": 1528.93,
+      "end": 1532.93,
+      "text": "The thing that in, in the future, if you want to capture some information, that's not,"
+    },
+    {
+      "start": 1532.93,
+      "end": 1537.93,
+      "text": "that's probably not in the, not in this, in this table."
+    },
+    {
+      "start": 1537.93,
+      "end": 1542.93,
+      "text": "Maybe we can add more, more events side, but I'm not sure if you want to contribute to"
+    },
+    {
+      "start": 1542.93,
+      "end": 1546.93,
+      "text": "making this table bigger, by the way, this table is the same table that's rendering that"
+    },
+    {
+      "start": 1546.93,
+      "end": 1547.93,
+      "text": "your activity on the dashboard."
+    },
+    {
+      "start": 1547.93,
+      "end": 1548.93,
+      "text": "Yes."
+    },
+    {
+      "start": 1548.93,
+      "end": 1549.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1549.93,
+      "end": 1551.93,
+      "text": "When you, when you go to someone's user, I, yeah, I know exactly."
+    },
+    {
+      "start": 1551.93,
+      "end": 1552.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1552.93,
+      "end": 1553.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1553.93,
+      "end": 1555.93,
+      "text": "Uh, I think this, that is already in the database."
+    },
+    {
+      "start": 1555.93,
+      "end": 1560.93,
+      "text": "Like you can see which user authored database, uh, authored issue and these things."
+    },
+    {
+      "start": 1560.93,
+      "end": 1565.93,
+      "text": "So, but this is already good enough to, um, to look at."
+    },
+    {
+      "start": 1565.93,
+      "end": 1566.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1566.93,
+      "end": 1567.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1567.93,
+      "end": 1568.93,
+      "text": "I've just added event store."
+    },
+    {
+      "start": 1568.93,
+      "end": 1573.93,
+      "text": "I I've mentioned before, and it's based on sidekick and it's not persisted anywhere."
+    },
+    {
+      "start": 1573.93,
+      "end": 1575.93,
+      "text": "So it's not available in the database."
+    },
+    {
+      "start": 1575.93,
+      "end": 1576.93,
+      "text": "And I think."
+    },
+    {
+      "start": 1576.93,
+      "end": 1579.93,
+      "text": "And store that it's event underscore store or whatever."
+    },
+    {
+      "start": 1579.93,
+      "end": 1580.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1580.93,
+      "end": 1583.93,
+      "text": "I've, I've shared the documentation link in our agenda."
+    },
+    {
+      "start": 1583.93,
+      "end": 1584.93,
+      "text": "Yes."
+    },
+    {
+      "start": 1584.93,
+      "end": 1586.93,
+      "text": "And it's based on sidekick."
+    },
+    {
+      "start": 1586.93,
+      "end": 1587.93,
+      "text": "So."
+    },
+    {
+      "start": 1587.93,
+      "end": 1589.93,
+      "text": "Everything disappears."
+    },
+    {
+      "start": 1589.93,
+      "end": 1590.93,
+      "text": "Yes."
+    },
+    {
+      "start": 1590.93,
+      "end": 1591.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1591.93,
+      "end": 1595.93,
+      "text": "Um, but that could theoretically maybe persist to the data insights platform."
+    },
+    {
+      "start": 1595.93,
+      "end": 1597.93,
+      "text": "Like you send that event when it happens."
+    },
+    {
+      "start": 1597.93,
+      "end": 1598.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1598.93,
+      "end": 1599.93,
+      "text": "And it is."
+    },
+    {
+      "start": 1599.93,
+      "end": 1602.93,
+      "text": "And Bogdan was saying in the last call that."
+    },
+    {
+      "start": 1602.93,
+      "end": 1610.93,
+      "text": "Um, the having it go, having it stored in Nats is you, as long as that uptime is correct,"
+    },
+    {
+      "start": 1610.93,
+      "end": 1617.93,
+      "text": "we don't have to worry about knowledge graph being down and that data living in some queue"
+    },
+    {
+      "start": 1617.93,
+      "end": 1619.93,
+      "text": "and postcards and waiting to go out."
+    },
+    {
+      "start": 1619.93,
+      "end": 1622.93,
+      "text": "It's just in this ephemeral service essentially."
+    },
+    {
+      "start": 1622.93,
+      "end": 1625.93,
+      "text": "And waiting for the event to be cleared out."
+    },
+    {
+      "start": 1625.93,
+      "end": 1630.93,
+      "text": "Um, so yeah, there are definitely some things to think through there."
+    },
+    {
+      "start": 1630.93,
+      "end": 1636.93,
+      "text": "Um, I think either way, we probably want to keep the code indexing task queue architecture"
+    },
+    {
+      "start": 1636.93,
+      "end": 1637.93,
+      "text": "that we have."
+    },
+    {
+      "start": 1637.93,
+      "end": 1644.93,
+      "text": "Um, unless you guys think like we should do the same thing, but again, I don't want us"
+    },
+    {
+      "start": 1644.93,
+      "end": 1650.93,
+      "text": "to have to completely re-architect, um, first since we already have the design document"
+    },
+    {
+      "start": 1650.93,
+      "end": 1651.93,
+      "text": "now."
+    },
+    {
+      "start": 1651.93,
+      "end": 1655.93,
+      "text": "Um, but what do you guys think?"
+    },
+    {
+      "start": 1655.93,
+      "end": 1660.93,
+      "text": "I don't know if we are going to use the same, uh, endpoints, like, uh, the same heartbeat"
+    },
+    {
+      "start": 1660.93,
+      "end": 1663.93,
+      "text": "endpoints that we use for SDLC as well."
+    },
+    {
+      "start": 1663.93,
+      "end": 1668.93,
+      "text": "Like maybe we can still, like, we, we have like these events index graph, delete graph."
+    },
+    {
+      "start": 1668.93,
+      "end": 1669.93,
+      "text": "It's not implemented yet."
+    },
+    {
+      "start": 1669.93,
+      "end": 1670.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1670.93,
+      "end": 1676.93,
+      "text": "So maybe we can still use these events to tell, to tell, uh, the knowledge graph proxy."
+    },
+    {
+      "start": 1676.93,
+      "end": 1681.93,
+      "text": "Hey, there's some indexing event, but it's, uh, the namespace, but it's not for project"
+    },
+    {
+      "start": 1681.93,
+      "end": 1682.93,
+      "text": "for its namespace."
+    },
+    {
+      "start": 1682.93,
+      "end": 1684.93,
+      "text": "So go and put the data one way or another."
+    },
+    {
+      "start": 1684.93,
+      "end": 1685.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1685.93,
+      "end": 1691.93,
+      "text": "Um, yeah, I definitely prefer us to try to see if we can make something like Siphon work."
+    },
+    {
+      "start": 1691.93,
+      "end": 1697.93,
+      "text": "Um, as long as the production timeline isn't too far out."
+    },
+    {
+      "start": 1697.93,
+      "end": 1701.93,
+      "text": "Um, again, we'll know tomorrow when we talk to Adam."
+    },
+    {
+      "start": 1701.93,
+      "end": 1707.93,
+      "text": "Um, uh, cause I, I prefer us like not write a bunch of logic for postgres triggers and then"
+    },
+    {
+      "start": 1707.93,
+      "end": 1708.93,
+      "text": "have to rewrite it."
+    },
+    {
+      "start": 1708.93,
+      "end": 1713.93,
+      "text": "Um, like a few months down the line to, uh, put it in Siphon."
+    },
+    {
+      "start": 1713.93,
+      "end": 1721.93,
+      "text": "Like if we can invest our resources and in helping push Siphon, um, that would also be, I think, good."
+    },
+    {
+      "start": 1721.93,
+      "end": 1727.93,
+      "text": "Um, I, I think if we had Nets when we started working on Zooked, we would have just used it"
+    },
+    {
+      "start": 1727.93,
+      "end": 1735.93,
+      "text": "or RabbitMQ or Kafka, it doesn't really matter, but we have to implement these tasks because"
+    },
+    {
+      "start": 1735.93,
+      "end": 1739.93,
+      "text": "we didn't, don't have an event, basically an event pass."
+    },
+    {
+      "start": 1739.93,
+      "end": 1740.93,
+      "text": "Event pass."
+    },
+    {
+      "start": 1740.93,
+      "end": 1741.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1741.93,
+      "end": 1742.93,
+      "text": "Okay."
+    },
+    {
+      "start": 1742.93,
+      "end": 1746.93,
+      "text": "Um, we have to go to the other code for the, uh, yes."
+    },
+    {
+      "start": 1746.93,
+      "end": 1755.93,
+      "text": "Um, but I think, uh, before you guys drop, I think we're all good on again."
+    },
+    {
+      "start": 1755.93,
+      "end": 1757.93,
+      "text": "You can disable this from."
+    },
+    {
+      "start": 1757.93,
+      "end": 1762.93,
+      "text": "Um, uh, I think we're all good on like everyone who's working on what, right?"
+    },
+    {
+      "start": 1762.93,
+      "end": 1767.93,
+      "text": "Cause Bogdan and Jean-Gabriel are taking open telemetry metrics, observability."
+    },
+    {
+      "start": 1767.93,
+      "end": 1771.93,
+      "text": "I think they have some questions on like understanding how Zooked and whatnot work."
+    },
+    {
+      "start": 1771.93,
+      "end": 1772.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1772.93,
+      "end": 1776.93,
+      "text": "We have some questions, but since you guys have to go, I guess we'll do it async, but essentially"
+    },
+    {
+      "start": 1776.93,
+      "end": 1778.93,
+      "text": "we need to figure out like, how is it set up with Zoek?"
+    },
+    {
+      "start": 1778.93,
+      "end": 1782.93,
+      "text": "And how would the knowledge graph be set up within like the Zoek infra?"
+    },
+    {
+      "start": 1782.93,
+      "end": 1787.93,
+      "text": "And then from there, I guess pretty much everything would be answered."
+    },
+    {
+      "start": 1787.93,
+      "end": 1790.93,
+      "text": "But let's, let's have this discussion in like the, in the epic."
+    },
+    {
+      "start": 1790.93,
+      "end": 1793.93,
+      "text": "I'll take you guys and then you can chime in."
+    },
+    {
+      "start": 1793.93,
+      "end": 1794.93,
+      "text": "That's good."
+    },
+    {
+      "start": 1794.93,
+      "end": 1795.93,
+      "text": "Thank you."
+    },
+    {
+      "start": 1795.93,
+      "end": 1796.93,
+      "text": "Um, yeah."
+    },
+    {
+      "start": 1796.93,
+      "end": 1801.93,
+      "text": "And then Mike would be focusing on re-indexing, right?"
+    },
+    {
+      "start": 1801.93,
+      "end": 1802.93,
+      "text": "And database stuff."
+    },
+    {
+      "start": 1802.93,
+      "end": 1803.93,
+      "text": "Yep."
+    },
+    {
+      "start": 1803.93,
+      "end": 1804.93,
+      "text": "Okay."
+    },
+    {
+      "start": 1804.93,
+      "end": 1807.93,
+      "text": "So Omar, Mike, you guys probably want to pair."
+    },
+    {
+      "start": 1807.93,
+      "end": 1808.93,
+      "text": "Um, yeah."
+    },
+    {
+      "start": 1808.93,
+      "end": 1811.93,
+      "text": "We'll pair, especially on like the Giddly stuff."
+    },
+    {
+      "start": 1811.93,
+      "end": 1816.93,
+      "text": "Cause I don't have a good grasp of what we can get and how we can get it."
+    },
+    {
+      "start": 1816.93,
+      "end": 1817.93,
+      "text": "So yeah."
+    },
+    {
+      "start": 1817.93,
+      "end": 1820.93,
+      "text": "Um, our primary concern will just be getting diffs."
+    },
+    {
+      "start": 1820.93,
+      "end": 1824.93,
+      "text": "So that should be enough to have re-indexing work."
+    },
+    {
+      "start": 1824.93,
+      "end": 1827.93,
+      "text": "Um, obviously we can't rely on a file voucher."
+    },
+    {
+      "start": 1827.93,
+      "end": 1828.93,
+      "text": "So."
+    },
+    {
+      "start": 1828.93,
+      "end": 1829.93,
+      "text": "Okay."
+    },
+    {
+      "start": 1829.93,
+      "end": 1830.93,
+      "text": "Okay."
+    },
+    {
+      "start": 1830.93,
+      "end": 1831.93,
+      "text": "Sorry that we have to go."
+    },
+    {
+      "start": 1831.93,
+      "end": 1832.93,
+      "text": "All right, guys."
+    },
+    {
+      "start": 1832.93,
+      "end": 1833.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1833.93,
+      "end": 1834.93,
+      "text": "Cool."
+    },
+    {
+      "start": 1834.93,
+      "end": 1835.93,
+      "text": "Right."
+    },
+    {
+      "start": 1835.93,
+      "end": 1836.93,
+      "text": "All right."
+    },
+    {
+      "start": 1836.93,
+      "end": 1842.93,
+      "text": "Um, do you guys want to continue to, you guys have any questions, issues?"
+    },
+    {
+      "start": 1842.93,
+      "end": 1847.93,
+      "text": "Um, put together like most of the points that we were talking about in the last meeting."
+    },
+    {
+      "start": 1847.93,
+      "end": 1851.93,
+      "text": "Cause we do have, I had to, there's definitely some action items."
+    },
+    {
+      "start": 1851.93,
+      "end": 1858.93,
+      "text": "Like we need to test, uh, Kuzu, uh, multiple Kuzu connections."
+    },
+    {
+      "start": 1858.93,
+      "end": 1859.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1859.93,
+      "end": 1865.93,
+      "text": "Attaching to, or like, sorry, attaching multiple Kuzu databases to the single connection."
+    },
+    {
+      "start": 1865.93,
+      "end": 1866.93,
+      "text": "See if that's possible."
+    },
+    {
+      "start": 1866.93,
+      "end": 1872.93,
+      "text": "I will have an issue open or just a exploratory MR open for that today with stats."
+    },
+    {
+      "start": 1872.93,
+      "end": 1874.93,
+      "text": "That should be pretty easy."
+    },
+    {
+      "start": 1874.93,
+      "end": 1875.93,
+      "text": "Okay."
+    },
+    {
+      "start": 1875.93,
+      "end": 1876.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1876.93,
+      "end": 1881.93,
+      "text": "Um, same thing with the other action item, the, um, versus."
+    },
+    {
+      "start": 1881.93,
+      "end": 1882.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1882.93,
+      "end": 1883.93,
+      "text": "The performance stuff."
+    },
+    {
+      "start": 1883.93,
+      "end": 1888.93,
+      "text": "I've been, I've been cleaning up the core indexer and there is a lot of low hanging fruit."
+    },
+    {
+      "start": 1888.93,
+      "end": 1889.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1889.93,
+      "end": 1893.93,
+      "text": "I, I don't want to be hyperbolic or hyperbolic sword."
+    },
+    {
+      "start": 1893.93,
+      "end": 1894.93,
+      "text": "It sucks."
+    },
+    {
+      "start": 1894.93,
+      "end": 1895.93,
+      "text": "The core sucks."
+    },
+    {
+      "start": 1895.93,
+      "end": 1902.93,
+      "text": "We did it in such a rush that, um, there's just data structures that don't need to be there."
+    },
+    {
+      "start": 1902.93,
+      "end": 1906.93,
+      "text": "So I will have something for y'all today."
+    },
+    {
+      "start": 1906.93,
+      "end": 1910.93,
+      "text": "Hopefully end of day, hopefully deleting close to."
+    },
+    {
+      "start": 1910.93,
+      "end": 1915.93,
+      "text": "Do you want me to create, do you want me to create an issue or do you want to create two issues for each one of those?"
+    },
+    {
+      "start": 1915.93,
+      "end": 1918.93,
+      "text": "Just so we can, cause those are good supporting evidence on."
+    },
+    {
+      "start": 1918.93,
+      "end": 1922.93,
+      "text": "Should we go as something like Neo4j or Kuzu especially?"
+    },
+    {
+      "start": 1922.93,
+      "end": 1923.93,
+      "text": "Yes."
+    },
+    {
+      "start": 1923.93,
+      "end": 1924.93,
+      "text": "I will."
+    },
+    {
+      "start": 1924.93,
+      "end": 1929.93,
+      "text": "I will create both the issues and have the data dump there and link them to like two spike MRs."
+    },
+    {
+      "start": 1929.93,
+      "end": 1931.93,
+      "text": "I think that'll just be the easiest way to do it."
+    },
+    {
+      "start": 1931.93,
+      "end": 1932.93,
+      "text": "Okay."
+    },
+    {
+      "start": 1932.93,
+      "end": 1933.93,
+      "text": "Yeah."
+    },
+    {
+      "start": 1933.93,
+      "end": 1939.93,
+      "text": "Um, so I think, yeah, I think everything else is, is good."
+    },
+    {
+      "start": 1939.93,
+      "end": 1945.5,
+      "text": "Um, I, I, I like that we have events table."
+    },
+    {
+      "start": 1945.5,
+      "end": 1957.5,
+      "text": "I, I think if we siphon, just events table, we will be able to solve like at least the first, first use cases, like, uh, for issues and Mars, uh, comments."
+    },
+    {
+      "start": 1957.5,
+      "end": 1964.5,
+      "text": "Um, yeah, issues and Mars comments, ethics gives us like a really good foundation."
+    },
+    {
+      "start": 1964.5,
+      "end": 1967.5,
+      "text": "Uh, also, I like, I like approach."
+    },
+    {
+      "start": 1967.5,
+      "end": 1974.5,
+      "text": "If it's gonna be rails that pushes data to us, then us trying to pull from rails."
+    },
+    {
+      "start": 1974.5,
+      "end": 1975.5,
+      "text": "Yes."
+    },
+    {
+      "start": 1975.5,
+      "end": 1986.5,
+      "text": "Uh, yeah, if, in, if, in future, if we need like more data, we can probably just like extend rails, uh, event system to just."
+    },
+    {
+      "start": 1986.5,
+      "end": 1997.5,
+      "text": "push to our own, uh, like event bus, whatever it's gonna be like Kafka rabbit MQ, whatever was mentioned."
+    },
+    {
+      "start": 1997.5,
+      "end": 1999.5,
+      "text": "I think it's Nats, Nats as well."
+    },
+    {
+      "start": 1999.5,
+      "end": 2000.5,
+      "text": "Nats."
+    },
+    {
+      "start": 2000.5,
+      "end": 2001.5,
+      "text": "Yeah."
+    },
+    {
+      "start": 2001.5,
+      "end": 2002.5,
+      "text": "Uh, yeah."
+    },
+    {
+      "start": 2002.5,
+      "end": 2012.5,
+      "text": "So if rails gonna push, uh, stuff there and we just pull from the queue, uh, it's gonna like decouple us from slowness of rails."
+    },
+    {
+      "start": 2012.5,
+      "end": 2013.5,
+      "text": "Yes."
+    },
+    {
+      "start": 2013.5,
+      "end": 2014.5,
+      "text": "For sure."
+    },
+    {
+      "start": 2014.5,
+      "end": 2015.5,
+      "text": "Uh, yeah."
+    },
+    {
+      "start": 2015.5,
+      "end": 2018.5,
+      "text": "Um, that's why I wanna avoid doing postgres triggers."
+    },
+    {
+      "start": 2018.5,
+      "end": 2031.5,
+      "text": "Like I, I, I like the idea, but it might be better that we say, Hey, we're going with the better long-term approach, um, out of the gate and just push, push for getting that."
+    },
+    {
+      "start": 2031.5,
+      "end": 2042.5,
+      "text": "Um, and because this is a business priority, I don't, I don't think it'll be an issue trying to, if we need to even help out, um, with, with siphon, I don't think it'd be an issue."
+    },
+    {
+      "start": 2042.5,
+      "end": 2048.18,
+      "text": "Um, so, okay."
+    },
+    {
+      "start": 2048.18,
+      "end": 2049.18,
+      "text": "Sounds good."
+    },
+    {
+      "start": 2049.18,
+      "end": 2054.23,
+      "text": "Um, I think that's pretty much it guys."
+    },
+    {
+      "start": 2054.23,
+      "end": 2062.23,
+      "text": "Do you guys have anything that you wanna go over other than the media stuff we're working on?"
+    },
+    {
+      "start": 2062.23,
+      "end": 2067.73,
+      "text": "I think I'm good."
+    },
+    {
+      "start": 2067.73,
+      "end": 2075.73,
+      "text": "Um, memory usage for Monolith is gonna be down by 50% by the end of this day."
+    },
+    {
+      "start": 2075.73,
+      "end": 2078.73,
+      "text": "Um, it, it might be down by even more."
+    },
+    {
+      "start": 2078.73,
+      "end": 2079.73,
+      "text": "Uh, yeah."
+    },
+    {
+      "start": 2079.73,
+      "end": 2080.73,
+      "text": "Not the peak."
+    },
+    {
+      "start": 2080.73,
+      "end": 2083.73,
+      "text": "Parked file creation is like one or two gigs of memory."
+    },
+    {
+      "start": 2083.73,
+      "end": 2085.73,
+      "text": "Parked file creation."
+    },
+    {
+      "start": 2085.73,
+      "end": 2090.73,
+      "text": "Also, the amount of duplicate intermediate data structures that we have is ridiculous."
+    },
+    {
+      "start": 2090.73,
+      "end": 2097.73,
+      "text": "So hopefully I, when I carve all that out, I don't think the peak will go down, but the average is gonna go down significantly."
+    },
+    {
+      "start": 2097.73,
+      "end": 2100.73,
+      "text": "Are you touching the indexing crate?"
+    },
+    {
+      "start": 2100.73,
+      "end": 2101.73,
+      "text": "I'm touching."
+    },
+    {
+      "start": 2101.73,
+      "end": 2103.73,
+      "text": "Yeah, I've, I've pretty much."
+    },
+    {
+      "start": 2103.73,
+      "end": 2105.73,
+      "text": "It's not a rework."
+    },
+    {
+      "start": 2105.73,
+      "end": 2106.73,
+      "text": "Oh, no."
+    },
+    {
+      "start": 2106.73,
+      "end": 2116.73,
+      "text": "We'll, I'll make sure that your changes are in first and we'll have a utilization data there so that if I break anything, I can go back and make sure."
+    },
+    {
+      "start": 2116.73,
+      "end": 2122.73,
+      "text": "We also have good end to end coverage, so it should, we should know if we broke something."
+    },
+    {
+      "start": 2122.73,
+      "end": 2123.73,
+      "text": "Yeah."
+    },
+    {
+      "start": 2123.73,
+      "end": 2130.73,
+      "text": "No, I'm not, I'm not as concerned about that as just accidentally reverting some of Bogdan's changes."
+    },
+    {
+      "start": 2130.73,
+      "end": 2131.73,
+      "text": "Oh, okay."
+    },
+    {
+      "start": 2131.73,
+      "end": 2133.73,
+      "text": "Yeah, yeah, yeah."
+    },
+    {
+      "start": 2133.73,
+      "end": 2136.73,
+      "text": "Yeah, the, the end to end coverage is good."
+    },
+    {
+      "start": 2136.73,
+      "end": 2140.73,
+      "text": "We, it should behave as, as expected."
+    },
+    {
+      "start": 2140.73,
+      "end": 2141.73,
+      "text": "So, yeah."
+    },
+    {
+      "start": 2141.73,
+      "end": 2145.73,
+      "text": "Uh, yeah, because in my case, uh, I already used some of the memory."
+    },
+    {
+      "start": 2145.73,
+      "end": 2151.73,
+      "text": "Like on the indexing stage, just by rearranging like data structures that we have."
+    },
+    {
+      "start": 2151.73,
+      "end": 2152.73,
+      "text": "Okay."
+    },
+    {
+      "start": 2152.73,
+      "end": 2166.73,
+      "text": "I have no idea of what a lot of them are doing, but I see, for example, that we, we needed like part of the data in the beginning of indexing stage and then we no longer need it."
+    },
+    {
+      "start": 2166.73,
+      "end": 2170.73,
+      "text": "So I just, uh, drop like part of the data that we have."
+    },
+    {
+      "start": 2170.73,
+      "end": 2171.73,
+      "text": "Okay."
+    },
+    {
+      "start": 2171.73,
+      "end": 2172.73,
+      "text": "Yeah."
+    },
+    {
+      "start": 2172.73,
+      "end": 2173.73,
+      "text": "Compilers that we can drop that."
+    },
+    {
+      "start": 2173.73,
+      "end": 2174.73,
+      "text": "Okay."
+    },
+    {
+      "start": 2174.73,
+      "end": 2175.73,
+      "text": "And it drops that."
+    },
+    {
+      "start": 2175.73,
+      "end": 2185.73,
+      "text": "Uh, so yeah, maybe something similar you can have in parquet file, uh, parquet creation files where you have like iterator of data."
+    },
+    {
+      "start": 2185.73,
+      "end": 2186.73,
+      "text": "Mm-hmm."
+    },
+    {
+      "start": 2186.73,
+      "end": 2194.73,
+      "text": "So, uh, if you need to go like multiple times through that iterator, you can drop like some fields that you already processed."
+    },
+    {
+      "start": 2194.73,
+      "end": 2195.73,
+      "text": "Correct."
+    },
+    {
+      "start": 2195.73,
+      "end": 2196.73,
+      "text": "And then iterate again."
+    },
+    {
+      "start": 2196.73,
+      "end": 2199.73,
+      "text": "So you have lower like watermark of the memory."
+    },
+    {
+      "start": 2199.73,
+      "end": 2200.73,
+      "text": "Okay."
+    },
+    {
+      "start": 2200.73,
+      "end": 2203.73,
+      "text": "Uh, yeah, that sounds about right."
+    },
+    {
+      "start": 2203.73,
+      "end": 2212.73,
+      "text": "What I'm more focused on, do you know how we have like a million different, uh, relationship structs, um, for different types of relationships."
+    },
+    {
+      "start": 2212.73,
+      "end": 2219.73,
+      "text": "We can actually just flatten all that out and, um, turn it into a single consolidated, uh, relationship structure."
+    },
+    {
+      "start": 2219.73,
+      "end": 2222.73,
+      "text": "Uh, that's why I say that the average is gonna go down."
+    },
+    {
+      "start": 2222.73,
+      "end": 2241.73,
+      "text": "I don't think the work I'm, I'm doing is gonna reduce the peak because, um, but it will reduce the average and it will remove like a thousand lines of code from our indexer, which is, which is very, that part is a disaster, especially the analysis."
+    },
+    {
+      "start": 2241.73,
+      "end": 2244.73,
+      "text": "The analysis are, so that'll all be cleaned up."
+    },
+    {
+      "start": 2244.73,
+      "end": 2250.73,
+      "text": "Um, but just cause, um, if we can get that done sooner rather than later, that'll be good."
+    },
+    {
+      "start": 2250.73,
+      "end": 2251.73,
+      "text": "Then we can forget about it."
+    },
+    {
+      "start": 2251.73,
+      "end": 2255.55,
+      "text": "So, but."
+    },
+    {
+      "start": 2255.55,
+      "end": 2256.55,
+      "text": "Okay."
+    },
+    {
+      "start": 2256.55,
+      "end": 2257.55,
+      "text": "Cool."
+    },
+    {
+      "start": 2257.55,
+      "end": 2270.55,
+      "text": "So Bogdan, I will just, I'm gonna go ham on my side, but when you do your changes, I'll just be very careful to make sure when I pull them in that I'm not undoing all of them."
+    },
+    {
+      "start": 2270.55,
+      "end": 2271.55,
+      "text": "So."
+    },
+    {
+      "start": 2271.55,
+      "end": 2274.28,
+      "text": "Okay."
+    },
+    {
+      "start": 2274.28,
+      "end": 2279.91,
+      "text": "Have we set up, um, GDK and everything with the Zoekt architecture yet?"
+    },
+    {
+      "start": 2279.91,
+      "end": 2280.91,
+      "text": "Not yet?"
+    },
+    {
+      "start": 2280.91,
+      "end": 2281.91,
+      "text": "Me, no."
+    },
+    {
+      "start": 2281.91,
+      "end": 2283.91,
+      "text": "I've just been focused on the core so far."
+    },
+    {
+      "start": 2283.91,
+      "end": 2284.91,
+      "text": "Okay."
+    },
+    {
+      "start": 2284.91,
+      "end": 2287.91,
+      "text": "Getting ready for, uh, re-indexing V2."
+    },
+    {
+      "start": 2287.91,
+      "end": 2289.91,
+      "text": "We'll probably want to do that soon."
+    },
+    {
+      "start": 2289.91,
+      "end": 2293.91,
+      "text": "Um, just so you guys can start getting familiar with it."
+    },
+    {
+      "start": 2293.91,
+      "end": 2294.91,
+      "text": "Okay."
+    },
+    {
+      "start": 2294.91,
+      "end": 2297.91,
+      "text": "Do you have ever seen, like, have you gone through that?"
+    },
+    {
+      "start": 2297.91,
+      "end": 2298.91,
+      "text": "Do you have ever seen set up?"
+    },
+    {
+      "start": 2298.91,
+      "end": 2299.91,
+      "text": "Yeah."
+    },
+    {
+      "start": 2299.91,
+      "end": 2300.91,
+      "text": "I was excited about that and recall."
+    },
+    {
+      "start": 2300.91,
+      "end": 2301.91,
+      "text": "I was sure."
+    },
+    {
+      "start": 2301.91,
+      "end": 2306.91,
+      "text": "Uh, we were not sure how much you webcoded, like, from scratch."
+    },
+    {
+      "start": 2306.91,
+      "end": 2307.91,
+      "text": "No, I got it."
+    },
+    {
+      "start": 2307.91,
+      "end": 2309.91,
+      "text": "I got it working."
+    },
+    {
+      "start": 2309.91,
+      "end": 2310.91,
+      "text": "Um, yeah."
+    },
+    {
+      "start": 2310.91,
+      "end": 2311.91,
+      "text": "All right."
+    },
+    {
+      "start": 2311.91,
+      "end": 2314.91,
+      "text": "So you have to get, you have to set up GDK."
+    },
+    {
+      "start": 2314.91,
+      "end": 2315.91,
+      "text": "You have to set up, uh, Zoekt."
+    },
+    {
+      "start": 2315.91,
+      "end": 2317.91,
+      "text": "I'll link you guys this stuff."
+    },
+    {
+      "start": 2317.91,
+      "end": 2320.91,
+      "text": "Um, definitely get GDK working."
+    },
+    {
+      "start": 2320.91,
+      "end": 2330.38,
+      "text": "Um, I mean, you guys can find GitLab development kit and I'll send it to you."
+    },
+    {
+      "start": 2330.38,
+      "end": 2331.38,
+      "text": "Yeah."
+    },
+    {
+      "start": 2331.38,
+      "end": 2333.38,
+      "text": "I have GDK installed."
+    },
+    {
+      "start": 2333.38,
+      "end": 2338.38,
+      "text": "I was never able to get it to, like, actually, I was able to get it to work, but it was,"
+    },
+    {
+      "start": 2338.38,
+      "end": 2341.38,
+      "text": "it was, like, it was, like, four months ago."
+    },
+    {
+      "start": 2341.38,
+      "end": 2342.38,
+      "text": "So."
+    },
+    {
+      "start": 2342.38,
+      "end": 2343.38,
+      "text": "Uh, GDK."
+    },
+    {
+      "start": 2343.38,
+      "end": 2347.38,
+      "text": "It's part of, uh, backend engineer onboarding."
+    },
+    {
+      "start": 2347.38,
+      "end": 2348.38,
+      "text": "Mm-hmm."
+    },
+    {
+      "start": 2348.38,
+      "end": 2353.38,
+      "text": "But nobody needs that if you're not in Rails team."
+    },
+    {
+      "start": 2353.38,
+      "end": 2354.38,
+      "text": "Yeah."
+    },
+    {
+      "start": 2354.38,
+      "end": 2359.38,
+      "text": "I guess my way of looking at it was just, when I'll need it, I'll set it up."
+    },
+    {
+      "start": 2359.38,
+      "end": 2360.38,
+      "text": "Oh."
+    },
+    {
+      "start": 2360.38,
+      "end": 2362.38,
+      "text": "Until then, there is just no point."
+    },
+    {
+      "start": 2362.38,
+      "end": 2363.38,
+      "text": "Trust me."
+    },
+    {
+      "start": 2363.38,
+      "end": 2371.38,
+      "text": "If you wanna do it earlier than later, because when you do need it, you're gonna be, it,"
+    },
+    {
+      "start": 2371.38,
+      "end": 2373.38,
+      "text": "there's many things like."
+    }
+  ]
+}

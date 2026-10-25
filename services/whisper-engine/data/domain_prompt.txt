@@ -1,0 +1,3 @@
+RapidoMeet, RapidoCRM, CRM, OAuth2, OAuth, n8n, webhook, pipeline, lead, prospect,
+client, deal, opportunity, funnel, conversion, onboarding, SaaS, API, dashboard,
+Supabase, Twilio, Zoom, Teams, Google Meet, Slack, Notion, HubSpot, Salesforce.

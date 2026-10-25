@@ -1,17 +1,21 @@
+# Environment and Python
 .env
 __pycache__/
 *.py[cod]
 *.egg-info/
 .venv/
 venv/
-data/training_samples/*/
-!data/training_samples/.gitkeep
-data/external/*/
-!data/external/.gitkeep
-!data/external/README.txt
-data/processed/
-models/
-!models/.gitkeep
-data/test_set/*/
-!data/test_set/.gitkeep
-!data/test_set/README.txt
+
+# Service-generated data
+/services/whisper-engine/data/processed/
+/services/whisper-engine/data/training_samples/
+/services/whisper-engine/data/test_set/
+/services/whisper-engine/data/external/*/
+
+# Keep dataset documentation
+!/services/whisper-engine/data/external/README.txt
+!/services/whisper-engine/data/test_set/README.txt
+
+# Model files
+/models/
+/services/whisper-engine/models/
